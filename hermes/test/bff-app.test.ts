@@ -312,6 +312,18 @@ describe("Hermes BFF", () => {
     expect(body.messages).toHaveLength(2);
     expect(body.messages[0].role).toBe("system");
     expect(body.messages[0].content).toContain("<hermes_action>");
+    expect(body.messages[0].content).toContain(
+      `Connected wallet: ${account.address}`
+    );
+    expect(body.messages[0].content).toContain(
+      "Call arc_get_wallet_usdc_balance"
+    );
+    expect(body.messages[0].content).toContain(
+      "unless the user explicitly asks"
+    );
+    expect(body.messages[0].content).toContain(
+      "Every action draft must be bound to the authenticated connected wallet"
+    );
     expect(body.messages[0].content).not.toContain("ignore safety");
     expect(body.messages[1]).toEqual({ role: "user", content: "How much?" });
     expect(body).not.toHaveProperty("system");

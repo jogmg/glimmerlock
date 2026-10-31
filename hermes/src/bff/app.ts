@@ -819,7 +819,7 @@ export function createBffApp(config: BffConfig, deps: BffDeps = {}): BffApp {
           messages,
           conversationId: parsed.data.conversationId,
           idempotencyKey,
-          system: INTENT_CHAT_SYSTEM_PROMPT,
+          system: `${INTENT_CHAT_SYSTEM_PROMPT}\n\nAuthenticated wallet context (verified by SIWE):\n- Connected wallet: ${wallet}\n- Use this exact address for direct wallet balance reads and as the agent for any explicitly requested treasury read. Treat it as authoritative over wallet addresses mentioned in chat.`,
           logger,
           fetchImpl: deps.fetchImpl,
         });

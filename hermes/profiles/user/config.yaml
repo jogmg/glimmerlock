@@ -78,6 +78,7 @@ mcp_servers:
     tools:
       include:
         - arc_get_config
+        - arc_get_wallet_usdc_balance
         - arc_get_treasury_state
         - arc_list_activity
         - arc_get_cctp_status

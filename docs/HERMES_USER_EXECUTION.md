@@ -189,14 +189,15 @@ The model does not invent endpoints. It calls this allowlisted surface.
 
 ### Read surface
 
-| User goal                                     | Hermes tool                 | BFF endpoint                      | Notes                                                             |
-| --------------------------------------------- | --------------------------- | --------------------------------- | ----------------------------------------------------------------- |
-| What is my balance / is the treasury healthy? | `arc_get_treasury_state`    | `GET /api/treasury`               | Principal, total, shares, paused, keeper, as-of block             |
-| What happened recently?                       | `arc_list_activity`         | `GET /api/activity`               | Bounded rows, block timestamps, tx links                          |
-| Did my withdrawal arrive?                     | `arc_get_cctp_status`       | `GET /api/cctp/:burnTx`           | Iris + destination `usedNonces`; `waiting`/`ready`/`done`/`error` |
-| What is my persisted transfer?                | `arc_get_transfer`          | `GET /api/transfers?burnTx=0x...` | Postgres record, not a completion claim                           |
-| Which contracts/network is active?            | `arc_get_config`            | `GET /api/config`                 | Mainnet/testnet, chain ID, treasury, receiver, USDC               |
-| What is waiting for bookkeeping?              | `arc_get_bookkeeping_queue` | Ops-only                          | Never exposed to the User profile                                 |
+| User goal                                    | Hermes tool                   | BFF endpoint                      | Notes                                                                                                                     |
+| -------------------------------------------- | ----------------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| How much USDC is in my connected wallet?     | `arc_get_wallet_usdc_balance` | Arc USDC `balanceOf`              | Returns only the connected wallet's direct USDC balance on Arc; no treasury fields                                        |
+| What is my treasury balance / is it healthy? | `arc_get_treasury_state`      | `GET /api/treasury`               | Use only when explicitly asked; pass the SIWE wallet as `agent`. Treasury USDC and treasury position are distinct fields. |
+| What happened recently?                      | `arc_list_activity`           | `GET /api/activity`               | Bounded rows, block timestamps, tx links                                                                                  |
+| Did my withdrawal arrive?                    | `arc_get_cctp_status`         | `GET /api/cctp/:burnTx`           | Iris + destination `usedNonces`; `waiting`/`ready`/`done`/`error`                                                         |
+| What is my persisted transfer?               | `arc_get_transfer`            | `GET /api/transfers?burnTx=0x...` | Postgres record, not a completion claim                                                                                   |
+| Which contracts/network is active?           | `arc_get_config`              | `GET /api/config`                 | Mainnet/testnet, chain ID, treasury, receiver, USDC                                                                       |
+| What is waiting for bookkeeping?             | `arc_get_bookkeeping_queue`   | Ops-only                          | Never exposed to the User profile                                                                                         |
 
 ### Action surface — Phase 2 only
 
