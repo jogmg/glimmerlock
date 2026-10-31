@@ -25,8 +25,8 @@ export function IntentActionCard({
     intent.kind === "deposit" ? "Review deposit" : "Review withdrawal";
 
   return (
-    <div className="mt-2 rounded-xl border border-emerald-500/30 bg-[#083D77]/5 p-3">
-      <div className="flex items-center gap-1.5 text-[11px] font-semibold text-emerald-200">
+    <div className="mt-2 rounded-xl border border-brand-700/30 bg-brand-700/5 p-3">
+      <div className="flex items-center gap-1.5 text-[11px] font-semibold text-brand-200">
         <Sparkles className="h-3 w-3" />
         Unsigned draft
       </div>
@@ -44,7 +44,7 @@ export function IntentActionCard({
             }`}
       </p>
       {intent.simulation.warning === "approval_required" && (
-        <p className="mt-2 text-[10px] leading-relaxed text-amber-300">
+        <p className="mt-2 text-[10px] leading-relaxed text-state-warning-300">
           A one-time USDC approval is required first.
         </p>
       )}
@@ -60,7 +60,7 @@ export function IntentActionCard({
         <button
           type="button"
           onClick={onActivity}
-          className="inline-flex items-center gap-1 rounded-lg border border-slate-700 px-2.5 py-1.5 text-[11px] text-slate-300 transition hover:border-emerald-500/40 hover:text-emerald-200"
+          className="inline-flex items-center gap-1 rounded-lg border border-slate-700 px-2.5 py-1.5 text-[11px] text-slate-300 transition hover:border-brand-700/40 hover:text-brand-200"
         >
           Activity
           <ExternalLink className="h-3 w-3" />

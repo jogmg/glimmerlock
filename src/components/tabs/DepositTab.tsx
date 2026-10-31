@@ -77,7 +77,7 @@ export function DepositTab() {
       return `Minimum deposit is ${formatUsdcDollar(minDeposit)}`;
     if (zeroShares) {
       return oneShareAssets
-        ? `Amount too small for the vault's share price — deposit at least ${formatUsdcDollar(
+        ? `Amount too small for the vault's share price. Deposit at least ${formatUsdcDollar(
             oneShareAssets
           )}`
         : "Amount too small to mint vault shares";
@@ -144,7 +144,7 @@ export function DepositTab() {
       if (review.intent && parsedAmount === BigInt(review.intent.amount)) {
         void markHermesIntentSubmitted(review.intent.id, depositTx)
           .catch((cause) =>
-            console.warn("Could not record Hermes draft tx", cause)
+            console.warn("Could not record Glimmerlock draft tx", cause)
           )
           .finally(() => review.dismiss());
       }
@@ -184,7 +184,7 @@ export function DepositTab() {
       <div className="flex items-center justify-between rounded-xl border bg-slate-900/60 px-4 py-3 border-slate-700">
         <span className="text-sm text-slate-400">Wallet USDC</span>
         <span className="font-mono text-sm tabular-nums text-white">
-          {!usdcBalanceLoaded ? "—" : formatUsdcDollar(usdcBalance)}
+          {!usdcBalanceLoaded ? "..." : formatUsdcDollar(usdcBalance)}
         </span>
       </div>
 
@@ -195,12 +195,12 @@ export function DepositTab() {
         <p className="text-center text-xs text-slate-500">Loading draft…</p>
       )}
       {review.error && (
-        <div className="flex items-start justify-between gap-3 rounded-xl border border-amber-500/20 bg-amber-500/5 px-3 py-2 text-xs text-amber-300">
+        <div className="flex items-start justify-between gap-3 rounded-xl border border-state-warning-500/20 bg-state-warning-500/5 px-3 py-2 text-xs text-state-warning-300">
           <span>{review.error}</span>
           <button
             type="button"
             onClick={review.retry}
-            className="shrink-0 font-medium underline underline-offset-2 hover:text-amber-200"
+            className="shrink-0 font-medium underline underline-offset-2 hover:text-state-warning-200"
           >
             Retry
           </button>
@@ -208,7 +208,7 @@ export function DepositTab() {
       )}
 
       {usdcBalanceLoaded && usdcBalance === 0n && (
-        <div className="flex items-start gap-2 rounded-xl border border-amber-500/20 bg-amber-500/5 p-4 text-sm text-amber-300">
+        <div className="flex items-start gap-2 rounded-xl border border-state-warning-500/20 bg-state-warning-500/5 p-4 text-sm text-state-warning-300">
           <Info className="mt-0.5 h-4 w-4 shrink-0" />
           <span>
             {IS_ARC_MAINNET ? (
@@ -248,7 +248,7 @@ export function DepositTab() {
           />
           <button
             onClick={() => setAmount(formatUsdc(usdcBalance, 6))}
-            className="shrink-0 rounded-lg border border-slate-700 px-3 py-1.5 text-xs font-medium text-slate-400 hover:border-emerald-500/40 hover:text-emerald-400"
+            className="shrink-0 rounded-lg border border-slate-700 px-3 py-1.5 text-xs font-medium text-slate-400 hover:border-brand-700/40 hover:text-brand-400"
           >
             MAX
           </button>
@@ -265,7 +265,7 @@ export function DepositTab() {
           <span
             className={
               depositStep !== "idle" && depositStep !== "approving"
-                ? "text-emerald-400"
+                ? "text-brand-400"
                 : "text-slate-400"
             }
           >
@@ -277,7 +277,7 @@ export function DepositTab() {
               depositStep === "pending" ||
               depositStep === "confirming" ||
               depositStep === "success"
-                ? "text-emerald-400"
+                ? "text-brand-400"
                 : "text-slate-400"
             }
           >
@@ -286,7 +286,7 @@ export function DepositTab() {
           <ArrowRight className="h-3 w-3" />
           <span
             className={
-              depositStep === "success" ? "text-emerald-400" : "text-slate-400"
+              depositStep === "success" ? "text-brand-400" : "text-slate-400"
             }
           >
             3. Vault
@@ -298,7 +298,7 @@ export function DepositTab() {
       {isWrongChain ? (
         <button
           onClick={() => switchChain({ chainId: ARC_CHAIN_ID })}
-          className="w-full rounded-xl bg-amber-500 py-3.5 text-sm font-semibold text-black transition hover:bg-amber-400"
+          className="w-full rounded-xl bg-state-warning-500 py-3.5 text-sm font-semibold text-black transition hover:bg-state-warning-400"
         >
           Switch to {ARC_CHAIN.name}
         </button>
@@ -319,7 +319,7 @@ export function DepositTab() {
       )}
 
       {validationMsg && parsedAmount > 0n && (
-        <p className="text-center text-xs text-red-400">{validationMsg}</p>
+        <p className="text-center text-xs text-state-danger-400">{validationMsg}</p>
       )}
 
       <TxStep
@@ -327,7 +327,7 @@ export function DepositTab() {
         hash={depositHash || approveHash}
         error={depositError}
         labels={{
-          success: `Deposited ${submittedAmount} USDC — vault shares minted.`,
+          success: `Deposited ${submittedAmount} USDC. Vault shares minted.`,
         }}
         onReset={resetDeposit}
       />

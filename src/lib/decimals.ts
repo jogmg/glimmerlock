@@ -1,6 +1,6 @@
 /**
  * Decimal helpers for USDC (6 dec) and Arc native gas (18 dec).
- * Never use 18 for token math — call parseUsdc / formatUsdc instead.
+ * Never use 18 for token math - call parseUsdc / formatUsdc instead.
  */
 
 export const USDC_DECIMALS       = 6

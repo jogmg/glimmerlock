@@ -40,13 +40,13 @@ function WrongNetworkBanner() {
 
   if (isCompletingMint) {
     return (
-      <div className="border-b border-emerald-500/30 bg-[#083D77]/10 px-4 py-2 text-center text-xs text-emerald-300">
+      <div className="border-b border-brand-700/30 bg-brand-700/10 px-4 py-2 text-center text-xs text-brand-300">
         Completing the CCTP mint on{" "}
         {destination?.name ?? "the destination chain"}.{" "}
         <button
           onClick={() => switchChain({ chainId: ARC_CHAIN_ID })}
           disabled={isPending}
-          className="font-semibold underline hover:text-emerald-200"
+          className="font-semibold underline hover:text-brand-200"
         >
           {isPending ? (
             "Switching…"
@@ -62,12 +62,12 @@ function WrongNetworkBanner() {
   }
 
   return (
-    <div className="border-b border-amber-500/30 bg-amber-500/10 px-4 py-2 text-center text-xs text-amber-300">
+    <div className="border-b border-state-warning-500/30 bg-state-warning-500/10 px-4 py-2 text-center text-xs text-state-warning-300">
       Wrong network.{" "}
       <button
         onClick={() => switchChain({ chainId: ARC_CHAIN_ID })}
         disabled={isPending}
-        className="font-semibold underline hover:text-amber-200"
+        className="font-semibold underline hover:text-state-warning-200"
       >
         {isPending ? (
           "Switching…"
@@ -86,14 +86,14 @@ function StudioPreviewBanner() {
   if (!STUDIO_PREVIEW) return null;
 
   return (
-    <div className="border-b border-sky-400/30 bg-sky-500/10 px-4 py-2 text-center text-xs text-sky-200">
+    <div className="border-b border-state-info-400/30 bg-state-info-500/10 px-4 py-2 text-center text-xs text-state-info-200">
       <span className="font-semibold">Arc Studio preview.</span> Treasury reads
-      work here; chat and Hermes-authenticated actions run in the live app.{" "}
+      work here; chat and wallet-signed actions run in the live app.{" "}
       <a
         href={LIVE_APP_URL}
         target="_blank"
         rel="noreferrer"
-        className="font-semibold underline hover:text-sky-100"
+        className="font-semibold underline hover:text-state-info-100"
       >
         Open the live app
       </a>

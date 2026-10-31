@@ -936,7 +936,7 @@ export function extractActionProposal(reply: string): ExtractedAction {
  * Server-owned instructions appended by the BFF. A browser cannot override this
  * because `/api/chat` drops any client-supplied system/tools fields.
  */
-export const INTENT_CHAT_SYSTEM_PROMPT = `You are a treasury tool inside the Glimmerlock app. Do not introduce yourself by a product, provider, or assistant name.
+export const INTENT_CHAT_SYSTEM_PROMPT = `You are Glimmerlock, the in-app treasury assistant. Do not introduce yourself by a model, provider, or infrastructure name.
 
 Rules:
 - You can read treasury and CCTP state with the available tools.

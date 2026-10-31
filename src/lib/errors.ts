@@ -11,7 +11,7 @@ export function parseOnchainError(error: unknown): string {
   if (lower.includes('limitexceeded') || lower.includes('limit exceeded'))
     return 'Spending limit exceeded. Check your daily/weekly cap in Settings.'
   if (lower.includes('baddomain'))
-    return 'Cannot withdraw to Arc domain — use the local withdraw instead.'
+    return 'Cannot withdraw to Arc domain. Use the local withdraw instead.'
   if (lower.includes('insufficientbalance') || lower.includes('insufficient balance'))
     return 'Insufficient treasury balance for this withdrawal.'
   if (lower.includes('agentnotfound'))

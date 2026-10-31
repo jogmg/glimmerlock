@@ -21,7 +21,7 @@
 > deterministic draft intents (`deposit`, `withdrawLocal`, `cctpWithdraw`), and a persistent
 > **Ask Hermes** dock with action cards and review deep links. The User profile is isolated on the
 > private Compose network with no Discord gateway or write tools. The public app is
-> [https://8080-agqvtg5gwokf3k7e5easq4hd5e.instabox.tech](https://8080-agqvtg5gwokf3k7e5easq4hd5e.instabox.tech)
+> [https://8080-agqvtg5gwokf3k7e5easq4hd5e.instabox.tech/app](https://8080-agqvtg5gwokf3k7e5easq4hd5e.instabox.tech/app)
 > through InstaBox's persistent HTTPS port 8080; the expired Cloudflare Quick Tunnel was removed.
 > On 2026-10-25, public `/health` returned `ok: true` and `/api/session` returned the expected
 > unauthenticated session response. Earlier SIWE/chat smoke passed on the temporary tunnel; rerun

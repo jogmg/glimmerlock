@@ -1,6 +1,6 @@
 /**
  * wagmi configuration
- * Built with Arc Studio — https://studio.arc.io
+ * Built with Arc Studio - https://studio.arc.io
  */
 
 import { createConfig } from 'wagmi'

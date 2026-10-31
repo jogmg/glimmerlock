@@ -185,7 +185,7 @@ function friendlyError(error: unknown): string {
     if (error.code === "rate_limited")
       return "You are sending messages too quickly. Try again in a moment.";
     if (error.code === "unauthorized")
-      return "Your Hermes session expired. Send the message again to sign in.";
+      return "Your Glimmerlock session expired. Send the message again to sign in.";
     if (error.status === 404)
       return "Chat is not available on this deployment yet.";
     return error.message;
@@ -193,7 +193,7 @@ function friendlyError(error: unknown): string {
   const message = error instanceof Error ? error.message : "";
   if (/reject|denied|cancel/i.test(message))
     return "Signature request cancelled.";
-  return "Could not reach Hermes. Try again.";
+  return "Could not reach Glimmerlock. Try again.";
 }
 
 function waitForNextChatPoll(signal: AbortSignal): Promise<void> {

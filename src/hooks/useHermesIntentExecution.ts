@@ -301,7 +301,7 @@ export function useHermesIntentExecution() {
     try {
       submitted = await markHermesIntentSubmitted(intent.id, hash);
     } catch {
-      console.warn("Could not update Hermes intent status");
+      console.warn("Could not update Glimmerlock draft status");
     }
     onSubmitted?.(submitted);
     setExecution({

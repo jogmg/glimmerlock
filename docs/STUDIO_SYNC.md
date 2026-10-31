@@ -7,11 +7,14 @@ production security.
 ## Current sync status (2026-10-29)
 
 - Source synchronized: `e72dec7`
-- Application source and Studio source match ignoring CRLF; any later local
-  commit is docs-only deploy bookkeeping and does not affect the app
+- Application source and Studio source matched ignoring CRLF at that sync.
+  **The 2026-10-30 public landing/app-routing change is local-only and has not
+  been synced.** Do not run a Studio sync or spend Studio credits without owner
+  confirmation.
 - Studio app: `https://studio.arc.io/app/459b639e-b500-4f59-b057-aa17f5446888`
 - Studio checks at this sync: typecheck 0 errors, **87 frontend tests
-  passing**, build success
+  passing**, build success. The local landing change now has **101 frontend
+  tests**; re-run checks in Studio after the confirmed sync.
 - Preview host: `ijwomt0218q2klpx2zr03.preview.studio.arc.io`
   (403 without an authenticated Studio session)
 - Production deploy: `700a1ad`, Actions run
@@ -37,7 +40,8 @@ wallet. Their authoritative record is:
 - `deployments/arc-mainnet.json`
 - `https://explorer.arc.io/`
 - the live app at
-  `https://8080-agqvtg5gwokf3k7e5easq4hd5e.instabox.tech`
+  `https://8080-agqvtg5gwokf3k7e5easq4hd5e.instabox.tech/app`
+  (the public landing page is at the same origin root)
 
 Do not redeploy `AgentTreasury`, `MorphoVaultAdapter`, or `CCTPReceiverV2` just
 to populate the Studio panel. Do not invent a Studio mainnet deployment record.
@@ -150,7 +154,7 @@ npm test
 npm run build
 ```
 
-Expected after the current patches: **87 frontend tests** locally. Treat the
+Expected after the current patches: **101 frontend tests** locally. Treat the
 Studio-reported count separately and record what Studio actually reports.
 
 Do not run `forge script` or any deploy command.

@@ -89,7 +89,7 @@ describe('cctp transfer history', () => {
 
   it('records the transfer only after the burn receipt confirms', () => {
     const { setCctp } = useFlowStore.getState()
-    // 'confirming' burns may revert — they must not linger as pending.
+    // 'confirming' burns may revert - they must not linger as pending.
     setCctp({ cctpStep: 'confirming', cctpHash: BURN_HASH, cctpOwner: '0xabc' })
     expect(useFlowStore.getState().cctpHistory).toHaveLength(0)
 

@@ -370,8 +370,10 @@ the URL can reach the frontend. Do not publish the BFF, Hermes, MCP, monitor,
 or Postgres ports. A named Cloudflare Tunnel remains an alternative if you
 later have a Cloudflare-managed domain:
 
-Current deployment (verified 2026-10-25):
-`https://8080-agqvtg5gwokf3k7e5easq4hd5e.instabox.tech`. The InstaBox port is
+Current deployment (verified 2026-10-25; route split added locally on
+2026-10-30): the public landing page is
+`https://8080-agqvtg5gwokf3k7e5easq4hd5e.instabox.tech` and the wallet app is
+`https://8080-agqvtg5gwokf3k7e5easq4hd5e.instabox.tech/app`. The InstaBox port is
 published and survives Compose reconciliation. The old `cloudflared-quick`
 service was removed after Cloudflare began rejecting its expired temporary
 tunnel identity. Public `/health` and same-origin `/api/session` both respond.

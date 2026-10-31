@@ -29,17 +29,17 @@ export function IntentReviewCard({
       : getCctpDestination(intent.destinationDomain);
 
   return (
-    <div className="rounded-xl border border-emerald-500/30 bg-[#083D77]/5 p-4">
+    <div className="rounded-xl border border-brand-700/30 bg-brand-700/5 p-4">
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-start gap-2">
-          <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#083D77]/15 ring-1 ring-emerald-500/30">
-            <Sparkles className="h-3.5 w-3.5 text-emerald-300" />
+          <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand-700/15 ring-1 ring-brand-700/30">
+            <Sparkles className="h-3.5 w-3.5 text-brand-300" />
           </div>
           <div>
-            <p className="text-sm font-semibold text-emerald-100">
+            <p className="text-sm font-semibold text-brand-100">
               {titleFor(intent)}
             </p>
-            <p className="mt-0.5 text-xs text-emerald-300/70">
+            <p className="mt-0.5 text-xs text-brand-300/70">
               Unsigned · expiring draft
             </p>
           </div>
@@ -49,7 +49,7 @@ export function IntentReviewCard({
             type="button"
             onClick={onDismiss}
             aria-label="Dismiss draft"
-            className="rounded-lg p-1 text-emerald-300/60 transition hover:bg-[#083D77]/10 hover:text-emerald-200"
+            className="rounded-lg p-1 text-brand-300/60 transition hover:bg-brand-700/10 hover:text-brand-200"
           >
             <X className="h-4 w-4" />
           </button>
@@ -103,7 +103,7 @@ export function IntentReviewCard({
       </dl>
 
       {intent.isMax && intent.kind === "withdrawLocal" && (
-        <p className="mt-3 rounded-lg border border-sky-500/20 bg-sky-500/5 px-2.5 py-2 text-[11px] leading-relaxed text-sky-300">
+        <p className="mt-3 rounded-lg border border-state-info-500/20 bg-state-info-500/5 px-2.5 py-2 text-[11px] leading-relaxed text-state-info-300">
           Use <span className="font-semibold">Withdraw All</span> to use the
           contract&apos;s max sentinel. The amount above is the balance when
           this draft was prepared.
@@ -111,7 +111,7 @@ export function IntentReviewCard({
       )}
 
       {intent.simulation.warning === "approval_required" && (
-        <p className="mt-3 flex items-start gap-1.5 rounded-lg border border-amber-500/20 bg-amber-500/5 px-2.5 py-2 text-[11px] leading-relaxed text-amber-300">
+        <p className="mt-3 flex items-start gap-1.5 rounded-lg border border-state-warning-500/20 bg-state-warning-500/5 px-2.5 py-2 text-[11px] leading-relaxed text-state-warning-300">
           <AlertTriangle className="mt-0.5 h-3 w-3 shrink-0" />
           This deposit needs a one-time USDC approval before the deposit
           transaction.
@@ -119,7 +119,7 @@ export function IntentReviewCard({
       )}
 
       {!intent.simulation.ok && (
-        <p className="mt-3 flex items-start gap-1.5 rounded-lg border border-red-500/20 bg-red-500/5 px-2.5 py-2 text-[11px] leading-relaxed text-red-300">
+        <p className="mt-3 flex items-start gap-1.5 rounded-lg border border-state-danger-500/20 bg-state-danger-500/5 px-2.5 py-2 text-[11px] leading-relaxed text-state-danger-300">
           <AlertTriangle className="mt-0.5 h-3 w-3 shrink-0" />
           {intent.simulation.error ?? "This draft could not be simulated."}
         </p>

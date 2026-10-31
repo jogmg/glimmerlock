@@ -17,7 +17,7 @@ function reviewError(error: unknown): string {
     }
     return error.message;
   }
-  return "Could not load the draft from Hermes.";
+  return "Could not load the draft from Glimmerlock.";
 }
 
 function removeIntentFromUrl() {

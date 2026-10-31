@@ -9,6 +9,7 @@ import {
   Check,
   ChevronRight,
   Copy,
+  Home,
   LayoutDashboard,
   Menu,
   Settings2,
@@ -89,7 +90,7 @@ export function Header() {
               title={shortAddress}
               className="glimmer-avatar h-11 w-11 rounded-full border border-white/40 p-[2px] shadow-[0_0_24px_rgba(79,117,160,0.3)] transition hover:scale-[1.04]"
             >
-              <span className="flex h-full w-full items-center justify-center rounded-full border border-white/30 bg-[#0A0E11]/55 text-white">
+              <span className="flex h-full w-full items-center justify-center rounded-full border border-white/30 bg-ink-950/55 text-white">
                 <Wallet className="h-[18px] w-[18px]" />
               </span>
             </button>
@@ -141,7 +142,7 @@ export function Header() {
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#96ADC8]">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-300">
                     Wallet
                   </p>
                   <h2
@@ -238,7 +239,7 @@ export function Header() {
                         {chain.name}
                       </span>
                       {chainId === chain.id ? (
-                        <Check className="h-4 w-4 text-[#96ADC8]" />
+                        <Check className="h-4 w-4 text-brand-300" />
                       ) : (
                         <span className="text-xs text-white/35">
                           {chain.id}
@@ -252,7 +253,7 @@ export function Header() {
                     type="button"
                     onClick={() => switchChain({ chainId: ARC_CHAIN_ID })}
                     disabled={switching}
-                    className="mt-2 w-full rounded-lg border border-[#96ADC8]/25 bg-[#4F75A0]/15 px-3 py-2.5 text-sm font-medium text-[#dce7f3] transition hover:bg-[#4F75A0]/25 disabled:opacity-50"
+                    className="mt-2 w-full rounded-lg border border-brand-300/25 bg-brand-400/15 px-3 py-2.5 text-sm font-medium text-brand-100 transition hover:bg-brand-400/25 disabled:opacity-50"
                   >
                     {switching ? "Switching…" : "Return to Arc"}
                   </button>
@@ -265,7 +266,7 @@ export function Header() {
                   disconnect();
                   setWalletOpen(false);
                 }}
-                className="mt-5 w-full rounded-lg border border-white/10 px-3 py-2.5 text-sm font-medium text-white/65 transition hover:border-red-300/25 hover:bg-red-400/10 hover:text-red-200"
+                className="mt-5 w-full rounded-lg border border-white/10 px-3 py-2.5 text-sm font-medium text-white/65 transition hover:border-state-danger-300/25 hover:bg-state-danger-400/10 hover:text-state-danger-200"
               >
                 Disconnect wallet
               </button>
@@ -289,7 +290,7 @@ export function Header() {
             >
               <div className="flex items-center justify-between pl-3 pb-3 pt-2">
                 <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#96ADC8]">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-300">
                     Glimmerlock
                   </p>
                   <h2
@@ -318,11 +319,11 @@ export function Header() {
                     }}
                     className={`flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left transition ${
                       activeTab === "hermes"
-                        ? "bg-[#4F75A0]/25 text-white"
+                        ? "bg-brand-400/25 text-white"
                         : "text-white/70 hover:bg-white/[0.07] hover:text-white"
                     }`}
                   >
-                    <Sparkles className="h-[18px] w-[18px] text-[#96ADC8]" />
+                    <Sparkles className="h-[18px] w-[18px] text-brand-300" />
                     <span className="flex-1 text-sm font-medium">Chat</span>
                     {activeTab === "hermes" && (
                       <ChevronRight className="h-4 w-4" />
@@ -339,15 +340,25 @@ export function Header() {
                     }}
                     className={`flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left transition ${
                       activeTab === id
-                        ? "bg-[#4F75A0]/25 text-white"
+                        ? "bg-brand-400/25 text-white"
                         : "text-white/70 hover:bg-white/[0.07] hover:text-white"
                     }`}
                   >
-                    <Icon className="h-[18px] w-[18px] text-[#96ADC8]" />
+                    <Icon className="h-[18px] w-[18px] text-brand-300" />
                     <span className="flex-1 text-sm font-medium">{label}</span>
                     {activeTab === id && <ChevronRight className="h-4 w-4" />}
                   </button>
                 ))}
+                <div className="my-1 h-px bg-white/10" />
+                <a
+                  href="/"
+                  className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-white/55 transition hover:bg-white/[0.07] hover:text-white"
+                >
+                  <Home className="h-[18px] w-[18px] text-brand-300" />
+                  <span className="flex-1 text-sm font-medium">
+                    Glimmerlock
+                  </span>
+                </a>
               </nav>
             </section>
           </div>,

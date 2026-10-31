@@ -8,7 +8,7 @@ import {
 import { useQueryClient } from "@tanstack/react-query";
 import { isAddress } from "viem";
 import { toast } from "sonner";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, ChevronDown } from "lucide-react";
 import {
   ADDRESSES,
   TREASURY_ABI,
@@ -165,7 +165,7 @@ export function WithdrawTab() {
       if (matchesLocalDraft) {
         void markHermesIntentSubmitted(localReview.id, tx)
           .catch((cause) =>
-            console.warn("Could not record Hermes draft tx", cause)
+            console.warn("Could not record Glimmerlock draft tx", cause)
           )
           .finally(() => review.dismiss());
       }
@@ -255,7 +255,7 @@ export function WithdrawTab() {
       if (matchesCctpDraft) {
         void markHermesIntentSubmitted(cctpReview.id, tx)
           .catch((cause) =>
-            console.warn("Could not record Hermes draft tx", cause)
+            console.warn("Could not record Glimmerlock draft tx", cause)
           )
           .finally(() => review.dismiss());
       }
@@ -286,7 +286,7 @@ export function WithdrawTab() {
   return (
     <div className="mx-auto max-w-lg space-y-6">
       {/* Balance info */}
-      <div className="flex items-center justify-between rounded-xl border border-slate-700 bg-[#0A0E11]/55 px-4 py-3">
+      <div className="flex items-center justify-between rounded-xl border border-slate-700 bg-ink-950/55 px-4 py-3">
         <span className="text-sm text-slate-400">Available</span>
         <span className="font-mono text-sm tabular-nums text-white">
           {formatUsdcDollar(totalBalance)}
@@ -294,7 +294,7 @@ export function WithdrawTab() {
       </div>
 
       {/* Local withdraw */}
-      <div className="rounded-xl border border-slate-700 bg-[#0A0E11]/55 p-5">
+      <div className="rounded-xl border border-slate-700 bg-ink-950/55 p-5">
         <h2 className="mb-4 text-sm font-semibold text-white">
           Withdraw to Wallet
         </h2>
@@ -308,12 +308,12 @@ export function WithdrawTab() {
           <p className="mb-3 text-xs text-slate-500">Loading draft…</p>
         )}
         {review.error && (
-          <div className="mb-3 flex items-start justify-between gap-3 rounded-lg border border-amber-500/20 bg-amber-500/5 px-3 py-2 text-xs text-amber-300">
+          <div className="mb-3 flex items-start justify-between gap-3 rounded-lg border border-state-warning-500/20 bg-state-warning-500/5 px-3 py-2 text-xs text-state-warning-300">
             <span>{review.error}</span>
             <button
               type="button"
               onClick={review.retry}
-              className="shrink-0 font-medium underline underline-offset-2 hover:text-amber-200"
+              className="shrink-0 font-medium underline underline-offset-2 hover:text-state-warning-200"
             >
               Retry
             </button>
@@ -326,14 +326,14 @@ export function WithdrawTab() {
             <button
               key={p}
               onClick={() => pct(p)}
-              className="rounded-lg border border-slate-700 px-3 py-1.5 text-xs font-medium text-slate-400 hover:border-emerald-500/40 hover:text-emerald-400"
+              className="rounded-lg border border-slate-700 px-3 py-1.5 text-xs font-medium text-slate-400 hover:border-brand-700/40 hover:text-brand-400"
             >
               {p}%
             </button>
           ))}
           <button
             onClick={() => pct(100)}
-            className="rounded-lg border border-slate-700 px-3 py-1.5 text-xs font-medium text-slate-400 hover:border-emerald-500/40 hover:text-emerald-400"
+            className="rounded-lg border border-slate-700 px-3 py-1.5 text-xs font-medium text-slate-400 hover:border-brand-700/40 hover:text-brand-400"
           >
             MAX
           </button>
@@ -346,13 +346,13 @@ export function WithdrawTab() {
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
           placeholder="0.00"
-          className="mb-4 w-full rounded-lg border border-slate-700 bg-slate-800/60 px-4 py-3 font-mono text-xl text-white outline-none placeholder:text-slate-700 tabular-nums focus:border-emerald-500/50"
+          className="mb-4 w-full rounded-lg border border-slate-700 bg-slate-800/60 px-4 py-3 font-mono text-xl text-white outline-none placeholder:text-slate-700 tabular-nums focus:border-brand-700/50"
         />
 
         {isWrongChain ? (
           <button
             onClick={() => switchChain({ chainId: ARC_CHAIN_ID })}
-            className="w-full rounded-xl bg-amber-500 py-3.5 text-sm font-semibold text-black transition hover:bg-amber-400"
+            className="w-full rounded-xl bg-state-warning-500 py-3.5 text-sm font-semibold text-black transition hover:bg-state-warning-400"
           >
             Switch to {ARC_CHAIN.name}
           </button>
@@ -376,7 +376,7 @@ export function WithdrawTab() {
                 void handleWithdraw(true);
               }}
               disabled={totalBalance === 0n || withdrawBusy}
-              className="rounded-xl border border-slate-700 px-5 py-3.5 text-sm font-medium text-slate-300 transition hover:border-emerald-500/40 hover:text-emerald-400 disabled:opacity-40"
+              className="rounded-xl border border-slate-700 px-5 py-3.5 text-sm font-medium text-slate-300 transition hover:border-brand-700/40 hover:text-brand-400 disabled:opacity-40"
             >
               Withdraw All
             </button>
@@ -395,16 +395,29 @@ export function WithdrawTab() {
       {/* CCTP advanced */}
       <details
         ref={cctpDetailsRef}
-        className="rounded-xl border border-slate-700 bg-[#0A0E11]/55"
+        className="group rounded-xl border border-slate-700 bg-slate-900/60"
       >
-        <summary className="cursor-pointer px-5 py-4 text-sm font-medium text-slate-300 hover:text-white">
-          Advanced: Cross-Chain Withdrawal (CCTP)
+        <summary className="flex cursor-pointer list-none select-none items-center justify-between gap-3 px-5 py-4 [&::-webkit-details-marker]:hidden">
+          <div>
+            <h2 className="text-sm font-semibold text-white">
+              Cross-Chain Withdrawal
+            </h2>
+            <p className="mt-0.5 text-xs text-slate-500">
+              Advanced CCTP route: burn on Arc and mint on another chain
+            </p>
+          </div>
+          <div className="flex shrink-0 items-center gap-2">
+            <span className="rounded-full bg-brand-700/60 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-white">
+              CCTP
+            </span>
+            <ChevronDown className="h-4 w-4 text-slate-500 transition group-open:rotate-180" />
+          </div>
         </summary>
         <div className="space-y-4 border-t border-slate-800 p-5">
           {cctpReview && (
             <IntentReviewCard intent={cctpReview} onDismiss={review.dismiss} />
           )}
-          <div className="flex items-start gap-2 rounded-lg border border-amber-500/20 bg-amber-500/5 p-3 text-xs text-amber-300">
+          <div className="flex items-start gap-2 rounded-lg border border-state-warning-500/20 bg-state-warning-500/5 p-3 text-xs text-state-warning-300">
             <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
             <span>
               This burns USDC on Arc and mints it on the destination through
@@ -425,7 +438,7 @@ export function WithdrawTab() {
                 value={cctpAmount}
                 onChange={(e) => setCctpAmount(e.target.value)}
                 placeholder="0.00"
-                className="w-full rounded-lg border border-slate-700 bg-slate-800/60 px-3 py-2 font-mono text-sm text-white outline-none placeholder:text-slate-600 focus:border-emerald-500/50"
+                className="w-full rounded-lg border border-slate-700 bg-slate-800/60 px-3 py-2.5 font-mono text-sm text-white outline-none placeholder:text-slate-600 focus:border-brand-700/50"
               />
             </div>
             <div>
@@ -435,7 +448,7 @@ export function WithdrawTab() {
               <select
                 value={destDomain}
                 onChange={(e) => setDestDomain(e.target.value)}
-                className="w-full rounded-lg border border-slate-700 bg-slate-800/60 px-3 py-2 text-sm text-white outline-none focus:border-emerald-500/50"
+                className="w-full rounded-lg border border-slate-700 bg-slate-800/60 px-3 py-2.5 text-sm text-white outline-none focus:border-brand-700/50"
               >
                 <option value="">Select chain…</option>
                 {Object.values(CCTP_DESTINATIONS)
@@ -459,7 +472,7 @@ export function WithdrawTab() {
                 value={mintRecipient}
                 onChange={(e) => setMintRecipient(e.target.value)}
                 placeholder="0x..."
-                className="w-full rounded-lg border border-slate-700 bg-slate-800/60 px-3 py-2 font-mono text-sm text-white outline-none placeholder:text-slate-600 focus:border-emerald-500/50"
+                className="w-full rounded-lg border border-slate-700 bg-slate-800/60 px-3 py-2.5 font-mono text-sm text-white outline-none placeholder:text-slate-600 focus:border-brand-700/50"
               />
             </div>
           </div>
@@ -469,7 +482,7 @@ export function WithdrawTab() {
               void handleCctp();
             }}
             disabled={!cctpAmount || !destDomain || !mintRecipient || cctpBusy}
-            className="w-full rounded-xl border border-slate-700 py-3 text-sm font-medium text-slate-300 transition hover:border-emerald-500/40 hover:text-emerald-400 disabled:opacity-40"
+            className="glimmer-primary-cta w-full"
           >
             {cctpBusy ? "Processing…" : "Request Cross-Chain Withdrawal"}
           </button>
@@ -492,36 +505,42 @@ export function WithdrawTab() {
             <CctpCompletionCard burnTx={cctpHash} />
           )}
 
-          <div className="space-y-2 border-t border-slate-800 pt-4">
-            <label className="block text-xs text-slate-500">
-              Already burned? Paste the Arc burn tx hash to finish it. Completed
-              requests are in the Activity tab.
-            </label>
-            <div className="flex gap-2">
-              <input
-                type="text"
-                value={existingTx}
-                onChange={(e) => setExistingTx(e.target.value)}
-                placeholder="0x..."
-                className="min-w-0 flex-1 rounded-lg border border-slate-700 bg-slate-800/60 px-3 py-2 font-mono text-xs text-white outline-none placeholder:text-slate-600 focus:border-emerald-500/50"
-              />
-              <button
-                type="button"
-                onClick={() => {
-                  const txHash = existingTx.trim();
-                  if (!/^0x[0-9a-fA-F]{64}$/.test(txHash)) {
-                    toast.error("Enter a valid 32-byte transaction hash");
-                    return;
-                  }
-                  loadCctpTransfer(txHash);
-                  setExistingTx("");
-                }}
-                className="shrink-0 rounded-lg border border-slate-700 px-3 py-2 text-xs font-medium text-slate-300 hover:border-emerald-500/40 hover:text-emerald-400"
-              >
-                Load
-              </button>
+          <details className="rounded-lg border border-slate-800 bg-slate-900/40">
+            <summary className="cursor-pointer px-3 py-2.5 text-xs font-medium text-slate-400 hover:text-slate-200">
+              Already burned? Finish a withdrawal
+            </summary>
+            <div className="space-y-2 border-t border-slate-800 p-3">
+              <p className="text-[11px] leading-relaxed text-slate-500">
+                Paste the Arc burn tx hash to finish the destination mint.
+                Completed requests are in the Activity tab.
+              </p>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={existingTx}
+                  onChange={(e) => setExistingTx(e.target.value)}
+                  placeholder="0x..."
+                  className="min-w-0 flex-1 rounded-lg border border-slate-700 bg-slate-800/60 px-3 py-2 font-mono text-xs text-white outline-none placeholder:text-slate-600 focus:border-brand-700/50"
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    const txHash = existingTx.trim();
+                    if (!/^0x[0-9a-fA-F]{64}$/.test(txHash)) {
+                      toast.error("Enter a valid 32-byte transaction hash");
+                      return;
+                    }
+                    loadCctpTransfer(txHash);
+                    setExistingTx("");
+                  }}
+                  disabled={!existingTx.trim()}
+                  className="shrink-0 rounded-lg border border-brand-700/40 px-3 py-2 text-xs font-medium text-brand-400 transition hover:bg-brand-700/10 disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  Load
+                </button>
+              </div>
             </div>
-          </div>
+          </details>
         </div>
       </details>
     </div>

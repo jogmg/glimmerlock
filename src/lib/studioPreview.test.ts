@@ -78,5 +78,6 @@ describe("Arc Studio preview detection", () => {
 
   it("publishes the live app URL used by the preview banner", () => {
     expect(LIVE_APP_URL).toMatch(/^https:\/\/.+/);
+    expect(LIVE_APP_URL).toMatch(/\/app$/);
   });
 });

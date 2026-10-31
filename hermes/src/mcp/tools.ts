@@ -225,7 +225,7 @@ export function createArcMcpServer(
     {
       title: 'Get persisted transfer',
       description:
-        'Read-only transfer record from the Hermes Postgres index. Supply a burn tx hash or an Arc withdrawal id.',
+        'Read-only transfer record from the Glimmerlock Postgres index. Supply a burn tx hash or an Arc withdrawal id.',
       inputSchema: {
         burnTx: z.string().regex(TX_RE).optional(),
         withdrawalId: z.number().int().min(0).optional(),

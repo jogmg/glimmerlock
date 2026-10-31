@@ -160,7 +160,7 @@ export async function fetchActivityEvents(
         events.push(ev)
       }
     } catch {
-      // RPC limit hit on this chunk — skip it and keep the rest.
+      // RPC limit hit on this chunk - skip it and keep the rest.
     }
 
     if (start === fromBlock) break

@@ -26,7 +26,7 @@ export function TabBar({ active, onChange }: Props) {
           className={clsx(
             "whitespace-nowrap px-4 py-3 text-sm font-medium transition-colors",
             active === t.id
-              ? "border-b-2 border-emerald-400 text-emerald-400"
+              ? "border-b-2 border-brand-400 text-brand-400"
               : "text-slate-400 hover:text-slate-200"
           )}
         >

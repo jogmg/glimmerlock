@@ -196,7 +196,7 @@ export function CrossChainDepositCard() {
     )}`;
   else if (zeroShares) {
     validation = oneShareAssets
-      ? `Amount too small for the vault's share price — deposit at least ${formatUsdcDollar(
+      ? `Amount too small for the vault's share price. Deposit at least ${formatUsdcDollar(
           oneShareAssets
         )}`
       : "Amount too small to mint vault shares";
@@ -859,7 +859,7 @@ export function CrossChainDepositCard() {
               {BRIDGE_STATUS_LABEL[status]}
             </span>
           )}
-          <span className="rounded-full bg-[#083D77]/60 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-white">
+          <span className="rounded-full bg-brand-700/60 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-white">
             CCTP
           </span>
           <ChevronDown className="h-4 w-4 text-slate-500 transition group-open:rotate-180" />
@@ -879,7 +879,7 @@ export function CrossChainDepositCard() {
                   setSelectedSourceDomain(Number(e.target.value));
                   setEnteredAmount("");
                 }}
-                className="w-full rounded-lg border border-slate-700 bg-slate-800/60 px-3 py-2.5 text-sm text-white outline-none focus:border-emerald-500/50"
+                className="w-full rounded-lg border border-slate-700 bg-slate-800/60 px-3 py-2.5 text-sm text-white outline-none focus:border-brand-700/50"
               >
                 {SOURCES.map((option) => (
                   <option key={option.domain} value={option.domain}>
@@ -910,7 +910,7 @@ export function CrossChainDepositCard() {
                   onClick={() => {
                     setEnteredAmount(formatUsdc(sourceBalance ?? 0n, 6));
                   }}
-                  className="shrink-0 rounded-md border border-slate-700 px-2 py-1 text-[11px] font-medium text-slate-400 hover:border-emerald-500/40 hover:text-emerald-400"
+                  className="shrink-0 rounded-md border border-slate-700 px-2 py-1 text-[11px] font-medium text-slate-400 hover:border-brand-700/40 hover:text-brand-400"
                 >
                   MAX
                 </button>
@@ -926,7 +926,7 @@ export function CrossChainDepositCard() {
                   {source.name} balance:{" "}
                   <span className="font-mono text-slate-400">
                     {sourceBalance === undefined
-                      ? "—"
+                      ? "..."
                       : formatUsdcDollar(sourceBalance)}
                   </span>
                 </span>
@@ -935,20 +935,20 @@ export function CrossChainDepositCard() {
                   <span
                     className={
                       sourceGas?.value === 0n
-                        ? "text-amber-300"
+                        ? "text-state-warning-300"
                         : "text-slate-400"
                     }
                   >
                     {sourceGas
                       ? `${sourceGas.formatted} ${sourceGas.symbol}`
-                      : "—"}
+                      : "..."}
                   </span>
                 </span>
               </div>
             </div>
 
             {sourceBalance === 0n && (
-              <div className="flex items-start gap-2 rounded-lg border border-amber-500/20 bg-amber-500/5 p-3 text-xs text-amber-300">
+              <div className="flex items-start gap-2 rounded-lg border border-state-warning-500/20 bg-state-warning-500/5 p-3 text-xs text-state-warning-300">
                 <Info className="mt-0.5 h-3.5 w-3.5 shrink-0" />
                 <span>
                   {IS_ARC_MAINNET ? (
@@ -956,7 +956,7 @@ export function CrossChainDepositCard() {
                       No USDC on{" "}
                       <NetworkLabel
                         name={source.name}
-                        className="text-amber-200"
+                        className="text-state-warning-200"
                         size={12}
                         iconOnly
                       />{" "}
@@ -968,7 +968,7 @@ export function CrossChainDepositCard() {
                       No USDC on{" "}
                       <NetworkLabel
                         name={source.name}
-                        className="text-amber-200"
+                        className="text-state-warning-200"
                         size={12}
                         iconOnly
                       />{" "}
@@ -989,13 +989,13 @@ export function CrossChainDepositCard() {
             )}
 
             {sourceGas?.value === 0n && (
-              <div className="flex items-start gap-2 rounded-lg border border-amber-500/20 bg-amber-500/5 p-3 text-xs text-amber-300">
+              <div className="flex items-start gap-2 rounded-lg border border-state-warning-500/20 bg-state-warning-500/5 p-3 text-xs text-state-warning-300">
                 <Fuel className="mt-0.5 h-3.5 w-3.5 shrink-0" />
                 <span>
                   You need {source.chain.nativeCurrency.symbol} on{" "}
                   <NetworkLabel
                     name={source.name}
-                    className="text-amber-200"
+                    className="text-state-warning-200"
                     size={12}
                     iconOnly
                   />{" "}
@@ -1049,7 +1049,7 @@ export function CrossChainDepositCard() {
             </button>
 
             {validation && parsedAmount > 0n && (
-              <p className="text-center text-xs text-red-400">{validation}</p>
+              <p className="text-center text-xs text-state-danger-400">{validation}</p>
             )}
 
             <p className="text-[11px] leading-relaxed text-slate-500">
@@ -1076,7 +1076,7 @@ export function CrossChainDepositCard() {
                     value={resumeTx}
                     onChange={(e) => setResumeTx(e.target.value)}
                     placeholder="0x source burn hash"
-                    className="min-w-0 flex-1 rounded-lg border border-slate-700 bg-slate-800/60 px-3 py-2 font-mono text-xs text-white outline-none placeholder:text-slate-600 focus:border-emerald-500/50"
+                    className="min-w-0 flex-1 rounded-lg border border-slate-700 bg-slate-800/60 px-3 py-2 font-mono text-xs text-white outline-none placeholder:text-slate-600 focus:border-brand-700/50"
                   />
                   <button
                     type="button"
@@ -1084,7 +1084,7 @@ export function CrossChainDepositCard() {
                       void handleResume();
                     }}
                     disabled={resuming || !resumeTx.trim()}
-                    className="shrink-0 rounded-lg border border-emerald-500/40 px-3 py-2 text-xs font-medium text-emerald-400 transition hover:bg-[#083D77]/10 disabled:cursor-not-allowed disabled:opacity-40"
+                    className="shrink-0 rounded-lg border border-brand-700/40 px-3 py-2 text-xs font-medium text-brand-400 transition hover:bg-brand-700/10 disabled:cursor-not-allowed disabled:opacity-40"
                   >
                     {resuming ? "Checking…" : "Track"}
                   </button>
@@ -1119,7 +1119,7 @@ export function CrossChainDepositCard() {
                           key={record.burnHash}
                           type="button"
                           onClick={() => restoreBridgeDeposit(record)}
-                          className="w-full rounded-lg border border-slate-800 bg-slate-800/40 px-3 py-2 text-left transition hover:border-emerald-500/30"
+                          className="w-full rounded-lg border border-slate-800 bg-slate-800/40 px-3 py-2 text-left transition hover:border-brand-700/30"
                         >
                           <span className="block text-xs text-slate-300">
                             {recordAmount > 0n
@@ -1150,7 +1150,7 @@ export function CrossChainDepositCard() {
 
         {isActive && !ownerMatches && (
           <div className="space-y-3">
-            <p className="flex items-start gap-2 text-xs text-amber-300">
+            <p className="flex items-start gap-2 text-xs text-state-warning-300">
               <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
               This deposit was started by{" "}
               {owner ? shortAddr(owner) : "another wallet"}. Switch back to that
@@ -1159,7 +1159,7 @@ export function CrossChainDepositCard() {
             <button
               type="button"
               onClick={reset}
-              className="w-full rounded-xl border border-slate-700 py-2.5 text-xs font-medium text-slate-300 transition hover:border-emerald-500/40 hover:text-emerald-400"
+              className="w-full rounded-xl border border-slate-700 py-2.5 text-xs font-medium text-slate-300 transition hover:border-brand-700/40 hover:text-brand-400"
             >
               Reset
             </button>
@@ -1197,7 +1197,7 @@ export function CrossChainDepositCard() {
 
             {status === "approving" && (
               <div className="flex items-start gap-3 text-sm text-slate-300">
-                <Loader2 className="mt-0.5 h-4 w-4 shrink-0 animate-spin text-emerald-400" />
+                <Loader2 className="mt-0.5 h-4 w-4 shrink-0 animate-spin text-brand-400" />
                 <div>
                   <p className="font-medium text-white">
                     Approve USDC on {activeSource.name}…
@@ -1210,7 +1210,7 @@ export function CrossChainDepositCard() {
                       href={`${activeSource.explorer}/tx/${approveHash}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-1 inline-flex items-center gap-1 text-xs text-emerald-400 underline"
+                      className="mt-1 inline-flex items-center gap-1 text-xs text-brand-400 underline"
                     >
                       View approval <ExternalLink className="h-3 w-3" />
                     </a>
@@ -1221,7 +1221,7 @@ export function CrossChainDepositCard() {
 
             {status === "burning" && (
               <div className="flex items-start gap-3 text-sm text-slate-300">
-                <Loader2 className="mt-0.5 h-4 w-4 shrink-0 animate-spin text-emerald-400" />
+                <Loader2 className="mt-0.5 h-4 w-4 shrink-0 animate-spin text-brand-400" />
                 <div>
                   <p className="font-medium text-white">
                     Burn USDC on {activeSource.name}…
@@ -1235,7 +1235,7 @@ export function CrossChainDepositCard() {
                       href={`${activeSource.explorer}/tx/${burnHash}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-1 inline-flex items-center gap-1 text-xs text-emerald-400 underline"
+                      className="mt-1 inline-flex items-center gap-1 text-xs text-brand-400 underline"
                     >
                       View burn <ExternalLink className="h-3 w-3" />
                     </a>
@@ -1246,7 +1246,7 @@ export function CrossChainDepositCard() {
 
             {status === "waiting" && (
               <div className="flex items-start gap-3 text-sm text-slate-300">
-                <Loader2 className="mt-0.5 h-4 w-4 shrink-0 animate-spin text-emerald-400" />
+                <Loader2 className="mt-0.5 h-4 w-4 shrink-0 animate-spin text-brand-400" />
                 <div>
                   <p className="font-medium text-white">
                     Waiting for Circle attestation…
@@ -1261,7 +1261,7 @@ export function CrossChainDepositCard() {
                   {/* <button
                     type="button"
                     onClick={discard}
-                    className="mt-3 rounded-lg border border-slate-700 px-3 py-1.5 text-[11px] font-medium text-slate-300 transition hover:border-red-500/40 hover:text-red-300"
+                    className="mt-3 rounded-lg border border-slate-700 px-3 py-1.5 text-[11px] font-medium text-slate-300 transition hover:border-state-danger-500/40 hover:text-state-danger-300"
                   >
                     Discard this burn
                   </button> */}
@@ -1272,10 +1272,10 @@ export function CrossChainDepositCard() {
             {status === "ready" && (
               <div className="space-y-3">
                 <div className="flex items-start gap-3">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-400" />
                   <div>
                     <p className="text-sm font-medium text-white">
-                      Attestation ready — {activeAmountLabel}
+                      Attestation ready: {activeAmountLabel}
                     </p>
                     <p className="mt-1 text-xs text-slate-400">
                       Credit on Arc. The receiver mints the USDC, credits your
@@ -1286,7 +1286,7 @@ export function CrossChainDepositCard() {
                 </div>
 
                 <div className="flex items-start gap-2 rounded-lg border border-slate-700 bg-slate-800/50 p-3 text-xs text-slate-400">
-                  <Fuel className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-400" />
+                  <Fuel className="mt-0.5 h-3.5 w-3.5 shrink-0 text-state-warning-400" />
                   <div className="min-w-0 flex-1">
                     <p>
                       The connected wallet pays Arc {ARC_GAS_SYMBOL} gas for one
@@ -1300,7 +1300,7 @@ export function CrossChainDepositCard() {
                           href="https://faucet.circle.com"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-emerald-400 underline hover:text-emerald-300"
+                          className="text-brand-400 underline hover:text-brand-300"
                         >
                           Get Arc test USDC
                         </a>
@@ -1317,12 +1317,12 @@ export function CrossChainDepositCard() {
                       <p
                         className={
                           needsArcGas
-                            ? "mt-1 text-amber-300"
+                            ? "mt-1 text-state-warning-300"
                             : "mt-1 text-slate-500"
                         }
                       >
                         Arc gas: {activeGas.formatted} {ARC_GAS_SYMBOL}
-                        {needsArcGas ? " — fund Arc gas before minting." : ""}
+                        {needsArcGas ? ". Fund Arc gas before minting." : ""}
                       </p>
                     )}
                   </div>
@@ -1341,13 +1341,13 @@ export function CrossChainDepositCard() {
                 {/* <button
                   type="button"
                   onClick={discard}
-                  className="w-full rounded-xl border border-slate-700 py-2.5 text-xs font-medium text-slate-300 transition hover:border-red-500/40 hover:text-red-300"
+                  className="w-full rounded-xl border border-slate-700 py-2.5 text-xs font-medium text-slate-300 transition hover:border-state-danger-500/40 hover:text-state-danger-300"
                 >
                   Discard this burn and start over
                 </button> */}
 
                 {error && (
-                  <p className="flex items-start gap-2 text-xs text-red-300">
+                  <p className="flex items-start gap-2 text-xs text-state-danger-300">
                     <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
                     {error}
                   </p>
@@ -1357,7 +1357,7 @@ export function CrossChainDepositCard() {
 
             {status === "minting" && (
               <div className="flex items-start gap-3 text-sm text-slate-300">
-                <Loader2 className="mt-0.5 h-4 w-4 shrink-0 animate-spin text-emerald-400" />
+                <Loader2 className="mt-0.5 h-4 w-4 shrink-0 animate-spin text-brand-400" />
                 <div>
                   <p className="font-medium text-white">Processing on Arc…</p>
                   <p className="mt-1 text-xs text-slate-400">
@@ -1370,7 +1370,7 @@ export function CrossChainDepositCard() {
                       href={`${ARC_EXPLORER}/tx/${mintHash}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-1 inline-flex items-center gap-1 text-xs text-emerald-400 underline"
+                      className="mt-1 inline-flex items-center gap-1 text-xs text-brand-400 underline"
                     >
                       View transaction <ExternalLink className="h-3 w-3" />
                     </a>
@@ -1381,7 +1381,7 @@ export function CrossChainDepositCard() {
 
             {status === "arc-approving" && (
               <div className="flex items-start gap-3 text-sm text-slate-300">
-                <Loader2 className="mt-0.5 h-4 w-4 shrink-0 animate-spin text-emerald-400" />
+                <Loader2 className="mt-0.5 h-4 w-4 shrink-0 animate-spin text-brand-400" />
                 <div>
                   <p className="font-medium text-white">
                     Approve USDC for the treasury…
@@ -1395,7 +1395,7 @@ export function CrossChainDepositCard() {
                       href={`${ARC_EXPLORER}/tx/${arcApproveHash}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-1 inline-flex items-center gap-1 text-xs text-emerald-400 underline"
+                      className="mt-1 inline-flex items-center gap-1 text-xs text-brand-400 underline"
                     >
                       View approval <ExternalLink className="h-3 w-3" />
                     </a>
@@ -1406,7 +1406,7 @@ export function CrossChainDepositCard() {
 
             {status === "depositing" && (
               <div className="flex items-start gap-3 text-sm text-slate-300">
-                <Loader2 className="mt-0.5 h-4 w-4 shrink-0 animate-spin text-emerald-400" />
+                <Loader2 className="mt-0.5 h-4 w-4 shrink-0 animate-spin text-brand-400" />
                 <div>
                   <p className="font-medium text-white">
                     Deposit into the treasury…
@@ -1420,7 +1420,7 @@ export function CrossChainDepositCard() {
                       href={`${ARC_EXPLORER}/tx/${depositHash}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-1 inline-flex items-center gap-1 text-xs text-emerald-400 underline"
+                      className="mt-1 inline-flex items-center gap-1 text-xs text-brand-400 underline"
                     >
                       View deposit <ExternalLink className="h-3 w-3" />
                     </a>
@@ -1430,7 +1430,7 @@ export function CrossChainDepositCard() {
             )}
 
             {status === "done" && (
-              <div className="flex items-start gap-3 text-sm text-emerald-300">
+              <div className="flex items-start gap-3 text-sm text-brand-300">
                 <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" />
                 <div>
                   <p className="font-medium">Cross-chain deposit credited</p>
@@ -1445,7 +1445,7 @@ export function CrossChainDepositCard() {
                         href={`${ARC_EXPLORER}/tx/${mintHash}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs text-emerald-400 underline hover:text-emerald-300"
+                        className="inline-flex items-center gap-1 text-xs text-brand-400 underline hover:text-brand-300"
                       >
                         View Arc transaction{" "}
                         <ExternalLink className="h-3 w-3" />
@@ -1456,7 +1456,7 @@ export function CrossChainDepositCard() {
                         href={`${ARC_EXPLORER}/tx/${depositHash}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs text-emerald-400 underline hover:text-emerald-300"
+                        className="inline-flex items-center gap-1 text-xs text-brand-400 underline hover:text-brand-300"
                       >
                         View treasury deposit{" "}
                         <ExternalLink className="h-3 w-3" />
@@ -1466,7 +1466,7 @@ export function CrossChainDepositCard() {
                   <button
                     type="button"
                     onClick={reset}
-                    className="mt-2 block rounded-lg border border-slate-700 px-3 py-1.5 text-[11px] font-medium text-slate-300 transition hover:border-emerald-500/40 hover:text-emerald-400"
+                    className="mt-2 block rounded-lg border border-slate-700 px-3 py-1.5 text-[11px] font-medium text-slate-300 transition hover:border-brand-700/40 hover:text-brand-400"
                   >
                     Start another deposit
                   </button>
@@ -1476,7 +1476,7 @@ export function CrossChainDepositCard() {
 
             {status === "error" && (
               <div className="space-y-3">
-                <p className="flex items-start gap-2 text-sm text-red-300">
+                <p className="flex items-start gap-2 text-sm text-state-danger-300">
                   <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
                   {error || "The cross-chain deposit could not be completed."}
                 </p>
@@ -1485,7 +1485,7 @@ export function CrossChainDepositCard() {
                     <button
                       type="button"
                       onClick={retryAttestation}
-                      className="flex-1 rounded-xl border border-slate-700 py-2.5 text-xs font-medium text-slate-300 transition hover:border-emerald-500/40 hover:text-emerald-400"
+                      className="flex-1 rounded-xl border border-slate-700 py-2.5 text-xs font-medium text-slate-300 transition hover:border-brand-700/40 hover:text-brand-400"
                     >
                       Retry attestation
                     </button>
@@ -1493,7 +1493,7 @@ export function CrossChainDepositCard() {
                   <button
                     type="button"
                     onClick={reset}
-                    className="flex-1 rounded-xl border border-slate-700 py-2.5 text-xs font-medium text-slate-300 transition hover:border-emerald-500/40 hover:text-emerald-400"
+                    className="flex-1 rounded-xl border border-slate-700 py-2.5 text-xs font-medium text-slate-300 transition hover:border-brand-700/40 hover:text-brand-400"
                   >
                     Reset
                   </button>

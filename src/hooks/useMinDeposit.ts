@@ -1,7 +1,7 @@
 /**
  * Live vault minimum from the MorphoVaultAdapter's vault registry. The
  * treasury and adapter enforce `BelowMinDeposit` on-chain, so the UI must
- * follow the configured value — and while the read is unresolved it stays
+ * follow the configured value - and while the read is unresolved it stays
  * `undefined`, which callers must treat as "cannot judge validity yet"
  * (never substitute a permissive default here; that allowed reverting tx).
  */

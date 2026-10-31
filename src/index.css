@@ -4,21 +4,111 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --gl-ink-950: 10 14 17;
+  --gl-ink-900: 17 26 36;
+  --gl-ink-850: 7 17 29;
+  --gl-ink-800: 10 15 30;
+
+  --gl-brand-100: 220 231 243;
+  --gl-brand-200: 196 213 232;
+  --gl-brand-300: 150 173 200;
+  --gl-brand-400: 79 117 160;
+  --gl-brand-500: 46 99 149;
+  --gl-brand-600: 15 74 134;
+  --gl-brand-700: 8 61 119;
+  --gl-brand-800: 6 46 89;
+  --gl-brand-900: 5 35 68;
+
+  /* Positive / yield green. gain-500 is the exact portfolio chart green. */
+  --gl-gain-100: 209 250 229;
+  --gl-gain-200: 167 243 208;
+  --gl-gain-300: 110 231 183;
+  --gl-gain-400: 52 211 153;
+  --gl-gain-500: 16 185 129;
+  --gl-gain-600: 5 150 105;
+  --gl-gain-700: 4 120 87;
+
+  --gl-state-success: 52 211 153;
+  --gl-state-info: 124 197 255;
+  --gl-state-warning: 251 191 36;
+  --gl-state-danger: 252 165 165;
+
+  --gl-state-info-100: 224 242 254;
+  --gl-state-info-200: 186 230 253;
+  --gl-state-info-300: 125 211 252;
+  --gl-state-info-400: 124 197 255;
+  --gl-state-info-500: 56 189 248;
+  --gl-state-info-600: 14 165 233;
+
+  --gl-state-warning-100: 254 243 199;
+  --gl-state-warning-200: 253 230 138;
+  --gl-state-warning-300: 251 191 36;
+  --gl-state-warning-400: 251 191 36;
+  --gl-state-warning-500: 245 158 11;
+  --gl-state-warning-600: 217 119 6;
+
+  --gl-state-danger-100: 254 226 226;
+  --gl-state-danger-200: 254 202 202;
+  --gl-state-danger-300: 252 165 165;
+  --gl-state-danger-400: 248 113 113;
+  --gl-state-danger-500: 239 68 68;
+  --gl-state-danger-600: 220 38 38;
+
+  --gl-event-deposit: 96 165 250;
+  --gl-event-cctp-deposit: 192 132 252;
+  --gl-event-local-withdraw: 250 204 21;
+  --gl-event-cctp-withdraw: 244 114 182;
+  --gl-event-executed: 45 212 191;
+  --gl-event-cancelled: 248 113 113;
+  --gl-event-strategy: 34 211 238;
+  --gl-event-rebalanced: 251 146 60;
+  --gl-event-neutral: 203 213 225;
+}
+
 @layer components {
   .glimmer-primary-cta {
-    @apply rounded-xl bg-[#083D77] px-4 py-3.5 text-sm font-semibold text-white transition hover:bg-[#083D77]/90 disabled:cursor-not-allowed disabled:opacity-40;
+    @apply rounded-xl px-4 py-3.5 text-sm font-semibold text-white transition disabled:cursor-not-allowed disabled:opacity-40;
+    /* Literal fallback is intentional: some Studio previews ignore the local
+       Tailwind palette. The token keeps the app consistent everywhere else. */
+    background-color: #083d77;
+    background-color: rgb(var(--gl-brand-700));
   }
+
+  .glimmer-primary-cta:hover {
+    background-color: #083d77;
+    background-color: rgb(var(--gl-brand-700) / 0.9);
+  }
+}
+
+@keyframes glimmer-app-loading-sweep {
+  from {
+    transform: translateX(-120%);
+  }
+
+  to {
+    transform: translateX(370%);
+  }
+}
+
+.glimmer-app-loading-sweep {
+  animation: glimmer-app-loading-sweep 1.15s cubic-bezier(0.65, 0, 0.35, 1)
+    infinite;
 }
 
 * {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: "DM Sans", sans-serif;
   min-height: 100dvh;
-  background: #0a0e11;
+  background: rgb(var(--gl-ink-950));
   color: #f1f5f9;
 }
 
@@ -31,6 +121,11 @@ body,
 #root {
   min-height: 100%;
   height: 100%;
+}
+
+::selection {
+  background: rgb(var(--gl-brand-400) / 0.42);
+  color: #fff;
 }
 
 .glimmer-page {
@@ -71,8 +166,7 @@ body,
   --glimmer-muted: rgba(203, 213, 225, 0.96);
   --glimmer-subtle: rgba(148, 163, 184, 0.98);
   --glimmer-strong: rgba(226, 232, 240, 1);
-  --glimmer-accent: rgba(110, 231, 183, 1);
-  --glimmer-warning: rgba(251, 191, 36, 1);
+  --glimmer-accent: rgb(var(--gl-brand-300));
 }
 
 .glimmer-page main:not(:has(.glimmer-chat-frame)) .text-slate-300,
@@ -98,25 +192,9 @@ body,
   color: rgba(161, 174, 196, 0.98) !important;
 }
 
-.glimmer-page main:not(:has(.glimmer-chat-frame)) .text-emerald-300,
-.glimmer-page main:not(:has(.glimmer-chat-frame)) .text-emerald-400 {
+.glimmer-page main:not(:has(.glimmer-chat-frame)) .text-brand-300,
+.glimmer-page main:not(:has(.glimmer-chat-frame)) .text-brand-400 {
   color: #96adc8 !important;
-}
-
-.glimmer-page main:not(:has(.glimmer-chat-frame)) .text-amber-300 {
-  color: var(--glimmer-warning) !important;
-}
-
-.glimmer-page main:not(:has(.glimmer-chat-frame)) .text-blue-400 {
-  color: #7cc5ff !important;
-}
-
-.glimmer-page main:not(:has(.glimmer-chat-frame)) .text-purple-400 {
-  color: #d4a8ff !important;
-}
-
-.glimmer-page main:not(:has(.glimmer-chat-frame)) .text-red-400 {
-  color: #fca5a5 !important;
 }
 
 .glimmer-page
@@ -138,13 +216,13 @@ body,
 
 .glimmer-page
   button:not(.glimmer-primary-cta):not(.bg-transparent):is(
-    [class*="hover:border-emerald-"],
-    [class*="hover:text-emerald-"]
+    [class*="hover:border-brand-"],
+    [class*="hover:text-brand-"]
   ),
 .glimmer-page
   [role="button"]:not(.glimmer-primary-cta):is(
-    [class*="hover:border-emerald-"],
-    [class*="hover:text-emerald-"]
+    [class*="hover:border-brand-"],
+    [class*="hover:text-brand-"]
   ) {
   color: #dce7f3;
   transition: background-color 150ms ease, border-color 150ms ease,
@@ -153,13 +231,13 @@ body,
 
 .glimmer-page
   button:not(.glimmer-primary-cta):not(.bg-transparent):is(
-    [class*="hover:border-emerald-"],
-    [class*="hover:text-emerald-"]
+    [class*="hover:border-brand-"],
+    [class*="hover:text-brand-"]
   ):hover,
 .glimmer-page
   [role="button"]:not(.glimmer-primary-cta):is(
-    [class*="hover:border-emerald-"],
-    [class*="hover:text-emerald-"]
+    [class*="hover:border-brand-"],
+    [class*="hover:text-brand-"]
   ):hover {
   border-color: #4f75a0 !important;
   background-color: rgb(79 117 160 / 16%);
@@ -198,6 +276,129 @@ body,
   display: none;
 }
 
+/* ── Landing surface ─────────────────────────────────────────────────────── */
+
+.landing-page {
+  position: relative;
+  isolation: isolate;
+  min-height: 100dvh;
+  overflow-x: clip;
+  background: radial-gradient(
+      circle at 76% 10%,
+      rgba(79, 117, 160, 0.2),
+      transparent 30rem
+    ),
+    radial-gradient(circle at 8% 42%, rgba(8, 61, 119, 0.3), transparent 34rem),
+    linear-gradient(150deg, #0a0e11 0%, #0a1018 48%, #07111d 100%);
+}
+
+.landing-page::before {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: linear-gradient(
+      rgba(150, 173, 200, 0.045) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(150, 173, 200, 0.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+  content: "";
+  mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    rgba(0, 0, 0, 0.7) 58%,
+    transparent 92%
+  );
+  pointer-events: none;
+}
+
+.landing-page::after {
+  position: absolute;
+  top: -18rem;
+  right: -18rem;
+  z-index: -1;
+  width: 56rem;
+  height: 56rem;
+  border: 1px solid rgba(150, 173, 200, 0.12);
+  border-radius: 999px;
+  box-shadow: 0 0 0 6rem rgba(150, 173, 200, 0.025),
+    0 0 0 12rem rgba(150, 173, 200, 0.018),
+    0 0 0 18rem rgba(150, 173, 200, 0.012);
+  content: "";
+  pointer-events: none;
+}
+
+.landing-rule {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(150, 173, 200, 0.28),
+    transparent
+  );
+}
+
+.landing-demo-frame {
+  background: linear-gradient(
+    180deg,
+    rgba(19, 30, 43, 0.94),
+    rgba(10, 14, 17, 0.98)
+  );
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 32px 120px rgba(0, 0, 0, 0.48), 0 0 80px rgba(79, 117, 160, 0.12);
+}
+
+.landing-demo-messages {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(150, 173, 200, 0.25) transparent;
+}
+
+.faq-chevron {
+  transition: transform 200ms ease;
+}
+
+summary {
+  list-style: none;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+details[open] .faq-chevron {
+  transform: rotate(45deg);
+}
+
+@keyframes landing-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+@keyframes landing-pulse {
+  0%,
+  100% {
+    opacity: 0.42;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.02);
+  }
+}
+
+.landing-float {
+  animation: landing-float 9s ease-in-out infinite;
+}
+
+.landing-pulse {
+  animation: landing-pulse 7s ease-in-out infinite;
+}
+
 @keyframes glimmer-arrive {
   from {
     opacity: 0;
@@ -215,4 +416,19 @@ body,
 }
 .scrollbar-none::-webkit-scrollbar {
   display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
 }

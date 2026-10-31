@@ -105,7 +105,7 @@ export function YieldTab() {
   return (
     <div className="mx-auto max-w-2xl space-y-6">
       {/* Active vault card */}
-      <div className="rounded-2xl border border-slate-700 bg-[#0A0E11]/55 p-6">
+      <div className="rounded-2xl border border-slate-700 bg-ink-950/55 p-6">
         <div className="flex items-start justify-between">
           <div>
             <p className="text-xs font-medium uppercase tracking-wider text-slate-500">
@@ -115,7 +115,7 @@ export function YieldTab() {
               {VAULT_1_NAME}
             </p>
           </div>
-          <span className="rounded-full border border-green-500/30 bg-green-500/10 px-3 py-1 text-sm font-medium text-green-300">
+          <span className="rounded-full border border-gain-500/30 bg-gain-500/10 px-3 py-1 text-sm font-medium text-gain-300">
             {vaultApy > 0n ? formatApy(vaultApy) : VAULT_1_APY_DISPLAY} APY
           </span>
         </div>
@@ -128,7 +128,7 @@ export function YieldTab() {
           </div>
           <div>
             <p className="text-xs text-slate-500">Share Value</p>
-            <p className="mt-1 font-mono text-sm tabular-nums text-green-300">
+            <p className="mt-1 font-mono text-sm tabular-nums text-white">
               {formatUsdcDollar(sharesValue)}
             </p>
           </div>
@@ -157,11 +157,13 @@ export function YieldTab() {
               : "No yield yet"
           }
           accent={totalBalance > principal}
+          subTone={totalBalance > principal ? "gain" : "muted"}
+          accentTone={totalBalance > principal ? "gain" : "brand"}
         />
       </div>
 
       {/* APY calculator */}
-      <div className="rounded-xl border border-slate-700 bg-[#0A0E11]/55 p-5">
+      <div className="rounded-xl border border-slate-700 bg-ink-950/55 p-5">
         <h2 className="mb-4 text-sm font-semibold text-white">
           Yield Projection (Compound)
         </h2>
@@ -172,7 +174,7 @@ export function YieldTab() {
               onClick={() => setProjDays(d)}
               className={`rounded-lg px-3 py-1.5 text-xs font-medium transition ${
                 projDays === d
-                  ? "bg-[#083D77] text-white"
+                  ? "bg-brand-700 text-white"
                   : "border border-slate-700 text-slate-400 hover:text-slate-200"
               }`}
             >
@@ -183,13 +185,13 @@ export function YieldTab() {
         <div className="grid grid-cols-2 gap-4">
           <div>
             <p className="text-xs text-slate-500">Projected value</p>
-            <p className="mt-1 font-mono text-xl tabular-nums text-green-300">
+            <p className="mt-1 font-mono text-xl tabular-nums text-white">
               {formatUsdcDollar(projected)}
             </p>
           </div>
           <div>
             <p className="text-xs text-slate-500">Expected gain</p>
-            <p className="mt-1 font-mono text-xl tabular-nums text-green-300">
+            <p className="mt-1 font-mono text-xl tabular-nums text-gain-400">
               +{formatUsdc(projGain, 4)}
             </p>
           </div>
@@ -203,27 +205,27 @@ export function YieldTab() {
       <div>
         <h2 className="mb-3 text-sm font-semibold text-white">Vault Tiers</h2>
         <div className="space-y-2">
-          {/* Vault 1 — active */}
-          <div className="flex items-center justify-between rounded-xl border border-slate-700 bg-[#0A0E11]/55 p-4">
+          {/* Vault 1: active */}
+          <div className="flex items-center justify-between rounded-xl border border-slate-700 bg-ink-950/55 p-4">
             <div>
               <p className="text-sm font-medium text-white">{VAULT_1_NAME}</p>
               <p className="text-xs text-slate-500">
-                {VAULT_1_TIER} —{" "}
+                {VAULT_1_TIER} ·{" "}
                 {minDeposit === undefined
                   ? "..."
                   : formatUsdcDollar(minDeposit)}{" "}
                 min
               </p>
             </div>
-            <span className="rounded-full bg-green-500/20 px-2 py-0.5 text-xs text-green-300">
+            <span className="rounded-full border border-gain-500/25 bg-gain-500/10 px-2 py-0.5 text-xs text-gain-300">
               Active
             </span>
           </div>
-          {/* Vaults 2 & 3 — not deployed
+          {/* Vaults 2 & 3: not deployed
           { ["USDC Steady", "USDC Growth"].map((name) => (
             <div
               key={name}
-              className="flex items-center justify-between rounded-xl border border-slate-700 bg-[#0A0E11]/55 p-4 opacity-50"
+              className="flex items-center justify-between rounded-xl border border-slate-700 bg-ink-950/55 p-4 opacity-50"
             >
               <div>
                 <p className="flex items-center gap-1.5 text-sm font-medium text-slate-400">
@@ -242,7 +244,7 @@ export function YieldTab() {
       </div>
 
       {/* Portfolio growth chart */}
-      <div className="rounded-xl border border-slate-700 bg-[#0A0E11]/55 p-5">
+      <div className="rounded-xl border border-slate-700 bg-ink-950/55 p-5">
         <div className="mb-4 flex items-center justify-between gap-3">
           <h2 className="text-sm font-semibold text-white">Portfolio Growth</h2>
           <div className="flex gap-1.5">
@@ -252,7 +254,7 @@ export function YieldTab() {
                 onClick={() => setGrowthRangeIdx(i)}
                 className={`rounded-lg px-2.5 py-1 text-xs font-medium transition ${
                   growthRangeIdx === i
-                    ? "bg-[#083D77] text-white"
+                    ? "bg-brand-700 text-white"
                     : "border border-slate-700 text-slate-400 hover:text-slate-200"
                 }`}
               >
@@ -275,9 +277,17 @@ export function YieldTab() {
             <ResponsiveContainer width="100%" height={160}>
               <AreaChart data={chartData}>
                 <defs>
-                  <linearGradient id="emeraldGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#10b981" stopOpacity={0.3} />
-                    <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+                  <linearGradient id="gainGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop
+                      offset="5%"
+                      stopColor="rgb(var(--gl-gain-500))"
+                      stopOpacity={0.3}
+                    />
+                    <stop
+                      offset="95%"
+                      stopColor="rgb(var(--gl-gain-500))"
+                      stopOpacity={0}
+                    />
                   </linearGradient>
                 </defs>
                 <XAxis
@@ -311,9 +321,9 @@ export function YieldTab() {
                 <Area
                   type="monotone"
                   dataKey="value"
-                  stroke="#10b981"
+                  stroke="rgb(var(--gl-gain-500))"
                   strokeWidth={2}
-                  fill="url(#emeraldGrad)"
+                  fill="url(#gainGrad)"
                   isAnimationActive={false}
                 />
               </AreaChart>

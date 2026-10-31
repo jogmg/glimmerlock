@@ -45,13 +45,13 @@ export function OverviewTab() {
   return (
     <div className="space-y-6">
       {/* Hero balance */}
-      <div className="rounded-2xl border border-slate-700 bg-[#0A0E11]/55 p-6">
+      <div className="rounded-2xl border border-slate-700 bg-ink-950/55 p-6">
         <p className="text-xs font-medium uppercase tracking-wider text-slate-500">
           Total Value
         </p>
         <p className="mt-2 font-mono text-4xl font-bold tabular-nums text-white">
           {isFetching && totalBalance === 0n
-            ? "—"
+            ? "..."
             : formatUsdcDollar(totalBalance)}
         </p>
         <p className="mt-1 flex items-center gap-1.5 text-sm text-slate-500">
@@ -73,11 +73,12 @@ export function OverviewTab() {
           value={formatUsdcDollar(accrued)}
           sub="Accrued since deposit"
           accent={accrued > 0n}
+          accentTone="gain"
           icon={<TrendingUp className="h-4 w-4" />}
         />
         <StatCard
           label="APY"
-          value={vaultApy > 0n ? formatApy(vaultApy) : "—"}
+          value={vaultApy > 0n ? formatApy(vaultApy) : "N/A"}
           sub={VAULT_1_NAME}
           icon={<Zap className="h-4 w-4" />}
         />
@@ -97,7 +98,7 @@ export function OverviewTab() {
             </h2>
             <button
               onClick={() => setTab("activity")}
-              className="rounded-full px-3 py-1.5 font-medium tracking-wide text-white text-xs bg-[#083D77] hover:bg-[#083D77]/80 transition"
+              className="rounded-full px-3 py-1.5 font-medium tracking-wide text-white text-xs bg-brand-700 hover:bg-brand-700/80 transition"
             >
               View all
             </button>

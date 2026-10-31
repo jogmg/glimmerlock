@@ -401,8 +401,8 @@ export function HermesCctpDepositCard({
   }
 
   return (
-    <div className="mt-3 border border-emerald-500/30 bg-[#083D77]/[0.04] p-4 text-left">
-      <p className="text-xs font-semibold uppercase tracking-wide text-emerald-200">
+    <div className="mt-3 border border-brand-700/30 bg-brand-700/[0.04] p-4 text-left">
+      <p className="text-xs font-semibold uppercase tracking-wide text-brand-200">
         CCTP deposit
       </p>
       <p className="mt-1.5 text-sm text-white">
@@ -432,7 +432,7 @@ export function HermesCctpDepositCard({
       )}
       {(localError || (activeMatches && bridge.error)) && (
         <p
-          className="mt-3 flex items-start gap-2 text-xs text-amber-200"
+          className="mt-3 flex items-start gap-2 text-xs text-state-warning-200"
           role="alert"
         >
           <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
@@ -487,7 +487,7 @@ function StatusLine({
   return (
     <p
       className={`mt-3 flex w-full flex-col items-start gap-1.5 text-xs ${
-        complete ? "text-emerald-300" : "text-sky-200"
+        complete ? "text-brand-300" : "text-state-info-200"
       }`}
       role="status"
     >

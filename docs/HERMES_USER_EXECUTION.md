@@ -2,7 +2,7 @@
 
 > Status: **Phase 2 BFF/auth/read-chat/deterministic draft intents are deployed on
 > InstaBox.** The public frontend is
-> [https://8080-agqvtg5gwokf3k7e5easq4hd5e.instabox.tech](https://8080-agqvtg5gwokf3k7e5easq4hd5e.instabox.tech);
+> [https://8080-agqvtg5gwokf3k7e5easq4hd5e.instabox.tech/app](https://8080-agqvtg5gwokf3k7e5easq4hd5e.instabox.tech/app);
 > only nginx is public, while the BFF and Hermes services remain private. On
 > 2026-10-28, the public app, `/health`, `/api/session`, and the Glimmerlock
 > assets were verified. The earlier authenticated SIWE/chat smoke used the

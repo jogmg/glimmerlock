@@ -70,7 +70,7 @@ const PHASE_STATUS: Record<
   { label: string; tone: PendingCctpItem["tone"] }
 > = {
   waiting: { label: "Waiting for Circle", tone: "info" },
-  ready: { label: "Attested — mint pending", tone: "action" },
+  ready: { label: "Attested, mint pending", tone: "action" },
   done: { label: "Minted", tone: "action" },
   error: { label: "Status unavailable", tone: "error" },
 };
@@ -395,16 +395,16 @@ export function ActivityTab() {
       {showBridge && filter !== "inflight" && (
         <div
           role="status"
-          className="rounded-xl border border-emerald-500/20 bg-[#083D77]/5 p-4"
+          className="rounded-xl border border-brand-700/20 bg-brand-700/5 p-4"
         >
           <div className="flex items-start gap-3">
-            <Clock className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+            <Clock className="mt-0.5 h-4 w-4 shrink-0 text-brand-400" />
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-2">
                 <p className="text-sm font-medium text-white">
                   Cross-chain deposit in progress
                 </p>
-                <span className="rounded-full border border-emerald-500/30 bg-[#083D77]/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-emerald-300">
+                <span className="rounded-full border border-brand-700/30 bg-brand-700/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-brand-300">
                   {BRIDGE_STATUS_LABEL[bridge.status]}
                 </span>
               </div>
@@ -420,7 +420,7 @@ export function ActivityTab() {
                     href={`${bridgeSource.explorer}/tx/${bridge.burnHash}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-xs text-emerald-400 underline hover:text-emerald-300"
+                    className="inline-flex items-center gap-1 text-xs text-brand-400 underline hover:text-brand-300"
                   >
                     View source burn <ExternalLink className="h-3 w-3" />
                   </a>
@@ -447,7 +447,7 @@ export function ActivityTab() {
               onClick={() => setFilter(opt.value)}
               className={`whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-medium transition ${
                 filter === opt.value
-                  ? "bg-[#083D77] text-white"
+                  ? "bg-brand-700 text-white"
                   : "border border-slate-700 text-slate-400 hover:text-slate-200"
               }`}
             >
@@ -501,7 +501,7 @@ export function ActivityTab() {
           </p>
         </div>
       ) : (
-        <div className="divide-y divide-slate-800 rounded-xl border border-slate-700 bg-[#0A0E11]/55">
+        <div className="divide-y divide-slate-800 rounded-xl border border-slate-700 bg-ink-950/55">
           {displayRows.map((row) =>
             row.item ? (
               <ActivityRow

@@ -1,7 +1,7 @@
 /**
  * ERC-4626 share pre-check for deposits. With 18-decimal shares and 6-decimal
  * USDC, a deposit only rounds to zero if the vault's value per share rises
- * enormously — but the failure is silent (assets accepted, no claim minted),
+ * enormously - but the failure is silent (assets accepted, no claim minted),
  * so the UI blocks it up front and shows the smallest amount that mints a
  * share. The adapter enforces the same rule on-chain.
  */

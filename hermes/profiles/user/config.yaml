@@ -1,6 +1,6 @@
-# Hermes User profile - Phase 2 (BFF-only, reads + unsigned draft actions)
+# Glimmerlock user profile - Phase 2 (BFF-only, reads + unsigned draft actions)
 #
-# This is the user-facing agent behind the frontend Ask Hermes dock. It is
+# This is the user-facing agent behind the frontend Glimmerlock chat dock. It is
 # reached only through the authenticated BFF on the private Compose network.
 # It has no Discord gateway, terminal, filesystem, browser, or signing tool.
 #

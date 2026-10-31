@@ -128,7 +128,7 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
     throw new HermesApiError(
       0,
       "network_error",
-      "Could not reach the Hermes service. Check your connection and try again."
+      "Could not reach Glimmerlock. Check your connection and try again."
     );
   }
 
@@ -152,7 +152,7 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
       typeof error?.code === "string" ? error.code : "request_failed",
       typeof error?.message === "string"
         ? error.message
-        : `Hermes request failed (${response.status}).`
+        : `Glimmerlock request failed (${response.status}).`
     );
   }
 

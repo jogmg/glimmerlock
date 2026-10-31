@@ -162,7 +162,7 @@ export function HermesDock() {
   return (
     <section
       aria-label="Treasury workspace"
-      className="glimmer-chat-frame mx-auto flex h-full min-h-[31rem] max-h-screen w-full max-w-[940px] flex-col overflow-hidden rounded-[24px] border border-white/15 bg-[#0A0E11]/55 shadow-[0_32px_100px_rgba(0,0,0,0.28)] backdrop-blur-2xl"
+      className="glimmer-chat-frame mx-auto flex h-full min-h-[31rem] max-h-screen w-full max-w-[940px] flex-col overflow-hidden rounded-[24px] border border-white/15 bg-ink-950/55 shadow-[0_32px_100px_rgba(0,0,0,0.28)] backdrop-blur-2xl"
     >
       <header className="flex min-h-[58px] items-center justify-between gap-3 border-b border-white/10 px-4 sm:px-6">
         <button
@@ -217,7 +217,7 @@ export function HermesDock() {
                   }}
                   className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm transition ${
                     session.id === activeId
-                      ? "bg-[#4F75A0]/25 text-white"
+                      ? "bg-brand-400/25 text-white"
                       : "text-white/65 hover:bg-white/[0.07] hover:text-white"
                   }`}
                 >
@@ -225,7 +225,7 @@ export function HermesDock() {
                     {session.title}
                   </span>
                   {session.id === activeId && (
-                    <Check className="h-4 w-4 shrink-0 text-[#96ADC8]" />
+                    <Check className="h-4 w-4 shrink-0 text-brand-300" />
                   )}
                 </button>
               ))}
@@ -236,7 +236,7 @@ export function HermesDock() {
           <span className="hidden items-center gap-2 pr-2 text-[11px] text-white/50 sm:flex">
             {/* <span
               className={`h-1.5 w-1.5 rounded-full ${
-                isConnected ? "bg-[#96ADC8]" : "bg-white/25"
+                isConnected ? "bg-brand-300" : "bg-white/25"
               }`}
             /> */}
             {isConnected ? (
@@ -271,7 +271,7 @@ export function HermesDock() {
               onClick={() => deleteSession(activeId)}
               aria-label="Delete current conversation"
               title="Delete conversation"
-              className="flex h-9 w-9 items-center justify-center rounded-full text-white/45 transition hover:bg-red-400/10 hover:text-red-200"
+              className="flex h-9 w-9 items-center justify-center rounded-full text-white/45 transition hover:bg-state-danger-400/10 hover:text-state-danger-200"
             >
               <Trash2 className="h-4 w-4" />
             </button>
@@ -285,7 +285,7 @@ export function HermesDock() {
       >
         {!isConnected && (
           <div className="glimmer-glass mx-auto flex max-w-md flex-col items-center gap-3 rounded-2xl px-6 py-10 text-center">
-            <Wallet className="h-7 w-7 text-[#96ADC8]" />
+            <Wallet className="h-7 w-7 text-brand-300" />
             <p className="text-sm text-slate-300">
               Connect your wallet to start a private conversation.
             </p>
@@ -298,7 +298,7 @@ export function HermesDock() {
         {isConnected && messages.length === 0 && (
           <div className="mx-auto flex min-h-full max-w-2xl flex-col justify-center py-8 sm:py-12">
             <div className="mb-8 text-center">
-              <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/15 bg-white/[0.08] text-[#96ADC8] shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]">
+              <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/15 bg-white/[0.08] text-brand-300 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]">
                 <Sparkles className="h-6 w-6" />
               </div>
               <p className="font-display text-2xl font-semibold text-white sm:text-3xl">
@@ -337,7 +337,7 @@ export function HermesDock() {
             <div
               className={`flex h-8 w-8 shrink-0 items-center justify-center ${
                 message.role === "assistant"
-                  ? "bg-[#4F75A0]/20 text-[#96ADC8]"
+                  ? "bg-brand-400/20 text-brand-300"
                   : "bg-white/10 text-white/65"
               }`}
             >
@@ -357,10 +357,15 @@ export function HermesDock() {
                   You
                 </p>
               )}
+              {message.role === "assistant" && (
+                <p className="mb-1 text-[10px] font-semibold uppercase tracking-wide text-brand-300/90">
+                  Glimmerlock
+                </p>
+              )}
               <div
                 className={`whitespace-pre-wrap break-words rounded-2xl px-4 py-3 text-sm leading-relaxed ${
                   message.role === "user"
-                    ? "inline-block border border-white/10 bg-[#4F75A0]/25 text-white"
+                    ? "inline-block border border-white/10 bg-brand-400/25 text-white"
                     : "glimmer-response border border-white/10 bg-white/[0.055] text-slate-100"
                 }`}
               >
@@ -374,7 +379,7 @@ export function HermesDock() {
                     disabled={busy || wrongChain}
                     title="Resend this prompt and discard later turns"
                     aria-label="Resend this prompt"
-                    className="inline-flex items-center gap-1 px-2 py-1 text-[10px] text-slate-500 transition hover:text-emerald-200 disabled:cursor-not-allowed disabled:opacity-40"
+                    className="inline-flex items-center gap-1 px-2 py-1 text-[10px] text-slate-500 transition hover:text-brand-200 disabled:cursor-not-allowed disabled:opacity-40"
                   >
                     <RotateCw className="h-3 w-3" />
                     Resend
@@ -390,7 +395,7 @@ export function HermesDock() {
                     disabled={busy}
                     title="Edit this prompt and remove later turns"
                     aria-label="Edit this prompt and remove later turns"
-                    className="inline-flex items-center gap-1 px-2 py-1 text-[10px] text-slate-500 transition hover:text-emerald-200 disabled:cursor-not-allowed disabled:opacity-40"
+                    className="inline-flex items-center gap-1 px-2 py-1 text-[10px] text-slate-500 transition hover:text-brand-200 disabled:cursor-not-allowed disabled:opacity-40"
                   >
                     <PencilLine className="h-3 w-3" />
                     Edit from here
@@ -409,7 +414,7 @@ export function HermesDock() {
                 <div className="glimmer-glass mt-3 rounded-2xl p-4 text-left">
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <p className="text-xs font-semibold uppercase tracking-wide text-emerald-200">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-brand-200">
                         Action prepared
                       </p>
                       <p className="mt-1.5 text-sm text-white">
@@ -422,21 +427,21 @@ export function HermesDock() {
                       )}
                       {message.intent.simulation.warning ===
                         "approval_required" && (
-                        <p className="mt-2 text-xs text-amber-300">
+                        <p className="mt-2 text-xs text-state-warning-300">
                           USDC approval will be requested first, then the
                           deposit.
                         </p>
                       )}
                       {message.intent.status === "submitted" &&
                         message.intent.txHash && (
-                          <p className="mt-2 inline-flex items-center gap-1 text-xs text-sky-300">
+                          <p className="mt-2 inline-flex items-center gap-1 text-xs text-state-info-300">
                             <Loader2 className="h-3.5 w-3.5" />
                             Submitted · waiting for confirmation
                           </p>
                         )}
                       {message.intent.status === "confirmed" &&
                         message.intent.txHash && (
-                          <p className="mt-2 inline-flex items-center gap-1 text-xs text-emerald-300">
+                          <p className="mt-2 inline-flex items-center gap-1 text-xs text-brand-300">
                             <Check className="h-3.5 w-3.5" />
                             Confirmed on Arc
                           </p>
@@ -446,7 +451,7 @@ export function HermesDock() {
                   {execution.intentId === message.intent.id &&
                     execution.step && (
                       <p
-                        className="mt-3 flex items-center gap-2 text-xs text-sky-200"
+                        className="mt-3 flex items-center gap-2 text-xs text-state-info-200"
                         role="status"
                       >
                         {execution.step === "Transaction confirmed on Arc" ? (
@@ -460,7 +465,7 @@ export function HermesDock() {
                   {execution.intentId === message.intent.id &&
                     execution.error && (
                       <p
-                        className="mt-3 border border-amber-500/20 bg-amber-500/5 px-3 py-2 text-xs text-amber-200"
+                        className="mt-3 border border-state-warning-500/20 bg-state-warning-500/5 px-3 py-2 text-xs text-state-warning-200"
                         role="alert"
                       >
                         {execution.error}
@@ -484,7 +489,7 @@ export function HermesDock() {
                       <button
                         type="button"
                         onClick={openActivity}
-                        className="mt-3 text-xs font-medium text-emerald-300 underline underline-offset-4"
+                        className="mt-3 text-xs font-medium text-brand-300 underline underline-offset-4"
                       >
                         Track transfer in Activity
                       </button>
@@ -501,7 +506,7 @@ export function HermesDock() {
                 </div>
               )}
               {message.role === "assistant" && message.actionError && (
-                <p className="mt-2 border border-amber-500/20 bg-amber-500/5 px-3 py-2 text-xs text-amber-300">
+                <p className="mt-2 border border-state-warning-500/20 bg-state-warning-500/5 px-3 py-2 text-xs text-state-warning-300">
                   {message.actionError}
                 </p>
               )}
@@ -518,14 +523,14 @@ export function HermesDock() {
         {error && (
           <div
             role="alert"
-            className="mx-auto flex max-w-3xl items-start gap-2 border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-200"
+            className="mx-auto flex max-w-3xl items-start gap-2 border border-state-warning-500/30 bg-state-warning-500/10 px-3 py-2 text-xs text-state-warning-200"
           >
             <AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
             <span>{error}</span>
           </div>
         )}
         {wrongChain && (
-          <div className="mx-auto flex max-w-3xl items-center justify-between gap-3 border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-200">
+          <div className="mx-auto flex max-w-3xl items-center justify-between gap-3 border border-state-warning-500/30 bg-state-warning-500/10 px-3 py-2 text-xs text-state-warning-200">
             <span>
               Switch to{" "}
               <span className="inline-flex items-center gap-1 align-middle">
@@ -558,7 +563,7 @@ export function HermesDock() {
               if (undoRevert()) setInput("");
             }}
             disabled={busy}
-            className="inline-flex shrink-0 items-center gap-1.5 px-2 py-1 text-xs font-medium text-emerald-200 transition hover:bg-[#083D77]/10 disabled:opacity-40"
+            className="inline-flex shrink-0 items-center gap-1.5 px-2 py-1 text-xs font-medium text-brand-200 transition hover:bg-brand-700/10 disabled:opacity-40"
           >
             <Undo2 className="h-3.5 w-3.5" />
             Restore conversation
@@ -573,7 +578,7 @@ export function HermesDock() {
         }}
         className="border-t border-white/10 bg-white/[0.025] px-4 py-3 sm:px-8"
       >
-        <div className="mx-auto flex max-w-3xl items-end gap-2 rounded-2xl border border-white/15 bg-[#0A0E11]/55 p-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl focus-within:border-[#96ADC8]/55">
+        <div className="mx-auto flex max-w-3xl items-end gap-2 rounded-2xl border border-white/15 bg-ink-950/55 p-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl focus-within:border-brand-300/55">
           <textarea
             ref={inputRef}
             value={input}
@@ -601,7 +606,7 @@ export function HermesDock() {
               !isConnected || busy || wrongChain || input.trim().length === 0
             }
             aria-label="Send message"
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#96ADC8]/80 hover:bg-[#96ADC8] text-[#0A0E11] transition disabled:cursor-not-allowed disabled:opacity-40"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-300/80 hover:bg-brand-300 text-ink-950 transition disabled:cursor-not-allowed disabled:opacity-40"
           >
             {busy ? (
               <Loader2 className="h-4 w-4 animate-spin" />

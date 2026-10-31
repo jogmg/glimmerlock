@@ -1,18 +1,17 @@
 /**
  * Arc Studio preview mode.
  *
- * Arc Studio runs the app in a sandboxed preview where the Hermes BFF is not
- * available. The production app is chat-first, so opening the Studio preview
- * would otherwise mount the chat tab and fail every `/api` request. In preview
- * we default to Overview, hide Chat, and point reviewers at the live app for
- * authenticated chat and wallet transactions.
+ * Arc Studio runs the app in a sandboxed preview where the chat BFF is not
+ * available. The public landing page owns `/`, and the authenticated app lives
+ * at `/app`. In preview the app surface defaults to Overview, hides Chat, and
+ * points reviewers at the live app for chat and wallet transactions.
  *
  * Detection is intentionally conservative. Set `VITE_STUDIO_PREVIEW=1` or add
  * `?studioPreview=1` if the Studio preview is served from a different host.
  */
 
 export const LIVE_APP_URL =
-  "https://8080-agqvtg5gwokf3k7e5easq4hd5e.instabox.tech";
+  "https://8080-agqvtg5gwokf3k7e5easq4hd5e.instabox.tech/app";
 
 export interface StudioPreviewContext {
   hostname?: string;

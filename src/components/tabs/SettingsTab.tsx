@@ -35,7 +35,7 @@ function CopyButton({ value }: { value: string }) {
       className="ml-2 text-slate-600 hover:text-slate-300 transition"
     >
       {copied ? (
-        <Check className="h-3.5 w-3.5 text-emerald-400" />
+        <Check className="h-3.5 w-3.5 text-brand-400" />
       ) : (
         <Copy className="h-3.5 w-3.5" />
       )}
@@ -53,7 +53,7 @@ function AddrRow({ label, value }: { label: string; value: string }) {
           href={explorerAddr(value)}
           target="_blank"
           rel="noopener noreferrer"
-          className="font-mono text-xs text-slate-400 hover:text-emerald-400"
+          className="font-mono text-xs text-slate-400 hover:text-brand-400"
         >
           {value.slice(0, 8)}…{value.slice(-6)}
         </a>
@@ -140,14 +140,14 @@ export function SettingsTab() {
   return (
     <div className="mx-auto max-w-lg space-y-6">
       {/* {IS_ARC_MAINNET && (
-        <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-5">
+        <div className="rounded-xl border border-state-warning-500/20 bg-state-warning-500/5 p-5">
           <div className="flex items-center gap-2">
-            <ShieldAlert className="h-4 w-4 text-amber-400" />
-            <h2 className="text-sm font-semibold text-amber-300">
+            <ShieldAlert className="h-4 w-4 text-state-warning-400" />
+            <h2 className="text-sm font-semibold text-state-warning-300">
               Mainnet guardrails
             </h2>
           </div>
-          <p className="mt-2 text-xs leading-relaxed text-amber-200/80">
+          <p className="mt-2 text-xs leading-relaxed text-state-warning-200/80">
             Contracts are unaudited. Vault minimum is 5 USDC; the launch
             spending limit is 25 USDC/day and 50 USDC/week. Keep deposits small,
             and do not custody third-party funds until the external audit is
@@ -175,7 +175,7 @@ export function SettingsTab() {
               value={daily}
               onChange={(e) => setDaily(e.target.value)}
               placeholder="0 = unlimited"
-              className="w-full rounded-lg border border-slate-700 bg-slate-800/60 px-3 py-2 font-mono text-sm text-white outline-none placeholder:text-slate-600 focus:border-emerald-500/50"
+              className="w-full rounded-lg border border-slate-700 bg-slate-800/60 px-3 py-2 font-mono text-sm text-white outline-none placeholder:text-slate-600 focus:border-brand-700/50"
             />
           </div>
           <div>
@@ -187,7 +187,7 @@ export function SettingsTab() {
               value={weekly}
               onChange={(e) => setWeekly(e.target.value)}
               placeholder="0 = unlimited"
-              className="w-full rounded-lg border border-slate-700 bg-slate-800/60 px-3 py-2 font-mono text-sm text-white outline-none placeholder:text-slate-600 focus:border-emerald-500/50"
+              className="w-full rounded-lg border border-slate-700 bg-slate-800/60 px-3 py-2 font-mono text-sm text-white outline-none placeholder:text-slate-600 focus:border-brand-700/50"
             />
           </div>
         </div>
@@ -195,7 +195,7 @@ export function SettingsTab() {
         {isWrongChain ? (
           <button
             onClick={() => switchChain({ chainId: ARC_CHAIN_ID })}
-            className="mt-4 w-full rounded-xl bg-amber-500 py-3 text-sm font-semibold text-black"
+            className="mt-4 w-full rounded-xl bg-state-warning-500 py-3 text-sm font-semibold text-black"
           >
             Switch to {ARC_CHAIN.name}
           </button>
@@ -236,10 +236,10 @@ export function SettingsTab() {
       </div> */}
 
       {/* Danger zone */}
-      {/* <div className="rounded-xl border border-red-500/20 bg-red-500/5 p-5">
+      {/* <div className="rounded-xl border border-state-danger-500/20 bg-state-danger-500/5 p-5">
         <div className="flex items-center gap-2">
-          <ShieldOff className="h-4 w-4 text-red-400" />
-          <h2 className="text-sm font-semibold text-red-400">
+          <ShieldOff className="h-4 w-4 text-state-danger-400" />
+          <h2 className="text-sm font-semibold text-state-danger-400">
             Contract Status
           </h2>
         </div>
@@ -248,8 +248,8 @@ export function SettingsTab() {
           <span
             className={`rounded-full px-2 py-0.5 text-xs font-medium ${
               isPaused
-                ? "bg-red-500/20 text-red-400"
-                : "bg-[#083D77]/20 text-emerald-400"
+                ? "bg-state-danger-500/20 text-state-danger-400"
+                : "bg-brand-700/20 text-brand-400"
             }`}
           >
             {isPaused ? "PAUSED" : "Active"}

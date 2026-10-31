@@ -99,10 +99,10 @@ export function OwnershipCard() {
   }
 
   return (
-    <div className="rounded-xl border border-sky-500/25 bg-sky-500/5 p-5">
+    <div className="rounded-xl border border-state-info-500/25 bg-state-info-500/5 p-5">
       <div className="flex items-center gap-2">
-        <KeyRound className="h-4 w-4 text-sky-400" />
-        <h2 className="text-sm font-semibold text-sky-200">Complete Contract Ownership</h2>
+        <KeyRound className="h-4 w-4 text-state-info-400" />
+        <h2 className="text-sm font-semibold text-state-info-200">Complete Contract Ownership</h2>
       </div>
       <p className="mt-2 text-xs leading-relaxed text-slate-400">
         This deployment uses a two-step ownership handoff. Accept on each contract
@@ -120,7 +120,7 @@ export function OwnershipCard() {
             <button
               onClick={() => { void handleAccept(c.address, c.name) }}
               disabled={busy}
-              className="rounded-lg border border-sky-500/40 px-3 py-1.5 text-xs font-medium text-sky-200 transition hover:bg-sky-500/10 disabled:opacity-40"
+              className="rounded-lg border border-state-info-500/40 px-3 py-1.5 text-xs font-medium text-state-info-200 transition hover:bg-state-info-500/10 disabled:opacity-40"
             >
               Accept
             </button>

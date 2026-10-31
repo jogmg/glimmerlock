@@ -32,12 +32,15 @@ const KIND_LABEL: Record<PendingCctpItem['direction'], string> = {
 }
 
 const KIND_CLASS: Record<PendingCctpItem['direction'], string> = {
-  in:  'bg-blue-500/15 text-blue-400 border-blue-500/20',
-  out: 'bg-purple-500/15 text-purple-400 border-purple-500/20',
+  in: 'bg-event-cctp-deposit/15 text-event-cctp-deposit border-event-cctp-deposit/20',
+  out: 'bg-event-cctp-withdraw/15 text-event-cctp-withdraw border-event-cctp-withdraw/20',
 }
 
-/** Completed status badge: keeps the kind badge but flips it to a done tone. */
-const COMPLETED_CLASS = 'bg-[#083D77]/15 text-emerald-400 border-emerald-500/20'
+/** Completed badges keep the transfer kind color, with a quieter tint. */
+const COMPLETED_CLASS: Record<PendingCctpItem['direction'], string> = {
+  in: 'bg-event-cctp-deposit/10 text-event-cctp-deposit border-event-cctp-deposit/20',
+  out: 'bg-event-cctp-withdraw/10 text-event-cctp-withdraw border-event-cctp-withdraw/20',
+}
 
 /**
  * Build the shared-shape row for a pending transfer. `onResume` receives the
@@ -74,12 +77,14 @@ export function pendingRowData(
 
   const links: ActivityLink[] = [{ href: burnHref, label: 'Burn tx' }]
   if (item.mintHash && mintHref) {
-    links.push({ href: mintHref, label: 'Mint tx', className: 'text-blue-400 hover:text-blue-300' })
+    links.push({ href: mintHref, label: 'Mint tx', className: 'text-state-info-400 hover:text-state-info-300' })
   }
 
   return {
     badgeLabel: KIND_LABEL[item.direction],
-    badgeClass: item.completed ? COMPLETED_CLASS : KIND_CLASS[item.direction],
+    badgeClass: item.completed
+      ? COMPLETED_CLASS[item.direction]
+      : KIND_CLASS[item.direction],
     title: `${amountLabel} · ${item.statusLabel} · ${sourceLabel} → ${destinationLabel}`,
     meta: new Date(item.timestamp).toLocaleString(),
     links,

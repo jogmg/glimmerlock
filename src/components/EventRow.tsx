@@ -20,15 +20,23 @@ function formatEventTime(event: ActivityEvent): string {
 }
 
 export const TYPE_COLORS: BadgeClass = {
-  DepositRecorded: "bg-green-500/15 text-green-300 border-green-500/25",
-  WithdrawalToWallet: "bg-blue-500/15 text-blue-300 border-blue-500/25",
-  WithdrawalRequested: "bg-purple-500/15 text-purple-300 border-purple-500/25",
-  WithdrawalExecuted: "bg-sky-500/15 text-sky-300 border-sky-500/25",
-  WithdrawalCancelled: "bg-red-500/15 text-red-300 border-red-500/25",
-  YieldStrategyChanged: "bg-purple-500/15 text-purple-300 border-purple-500/25",
-  Rebalanced: "bg-slate-500/15 text-slate-200 border-slate-500/25",
-  YieldClaimed: "bg-[#083D77]/15 text-emerald-300 border-emerald-500/25",
-  SpendingLimitSet: "bg-slate-500/15 text-slate-200 border-slate-500/25",
+  DepositRecorded:
+    "bg-event-deposit/15 text-event-deposit border-event-deposit/25",
+  WithdrawalToWallet:
+    "bg-event-local-withdraw/15 text-event-local-withdraw border-event-local-withdraw/25",
+  WithdrawalRequested:
+    "bg-event-cctp-withdraw/15 text-event-cctp-withdraw border-event-cctp-withdraw/25",
+  WithdrawalExecuted:
+    "bg-event-executed/15 text-event-executed border-event-executed/25",
+  WithdrawalCancelled:
+    "bg-event-cancelled/15 text-event-cancelled border-event-cancelled/25",
+  YieldStrategyChanged:
+    "bg-event-strategy/15 text-event-strategy border-event-strategy/25",
+  Rebalanced:
+    "bg-event-rebalanced/15 text-event-rebalanced border-event-rebalanced/25",
+  YieldClaimed: "bg-gain-500/15 text-gain-300 border-gain-500/25",
+  SpendingLimitSet:
+    "bg-event-neutral/15 text-event-neutral border-event-neutral/25",
 };
 
 export const TYPE_LABELS: BadgeClass = {
@@ -43,7 +51,7 @@ export const TYPE_LABELS: BadgeClass = {
   SpendingLimitSet: "Limit Set",
 };
 
-// Safe helpers — event args come back as Record<string, unknown> from viem
+// Safe helpers: event args come back as Record<string, unknown> from viem
 function argBigInt(a: Record<string, unknown>, key: string): bigint {
   const v = a[key];
   if (typeof v === "bigint") return v;
@@ -105,7 +113,7 @@ function describeEvent(
 
 const CCTP_PHASE_LABEL: Record<CctpWithdrawalStatus["phase"], string> = {
   waiting: "Waiting for Circle",
-  ready: "Attested — mint pending",
+  ready: "Attested, mint pending",
   done: "Minted",
   error: "Status unavailable",
 };
@@ -207,7 +215,7 @@ export function eventRowData(
         ? `${destination.explorer}/tx/${cctpStatus.mintTxHash}`
         : explorerTx(cctpStatus.mintTxHash),
       label: "Mint tx",
-      className: "text-blue-400 hover:text-blue-300",
+      className: "text-state-info-400 hover:text-state-info-300",
     });
   }
 
@@ -270,7 +278,7 @@ export function ActivityRow({
             {data.action && (
               <button
                 onClick={data.action.onClick}
-                className="rounded-lg border border-slate-700 px-2.5 py-1 text-[11px] font-medium text-slate-300 hover:border-emerald-500/40 hover:text-emerald-400"
+                className="rounded-lg border border-slate-700 px-2.5 py-1 text-[11px] font-medium text-slate-300 hover:border-brand-700/40 hover:text-brand-400"
               >
                 {data.action.label}
               </button>
@@ -305,7 +313,7 @@ export function ActivityRow({
                   rel="noopener noreferrer"
                   className={clsx(
                     "flex items-center gap-1 font-medium",
-                    link.className ?? "text-emerald-400 hover:text-emerald-300"
+                    link.className ?? "text-brand-400 hover:text-brand-300"
                   )}
                 >
                   {link.label} <ExternalLink className="h-3 w-3" />

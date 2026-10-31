@@ -209,7 +209,7 @@ export function CctpCompletionCard({ burnTx }: Props) {
 
       {cctpCompletionStatus === "waiting" && (
         <div className="flex items-start gap-3 text-sm text-slate-300">
-          <Loader2 className="mt-0.5 h-4 w-4 shrink-0 animate-spin text-emerald-400" />
+          <Loader2 className="mt-0.5 h-4 w-4 shrink-0 animate-spin text-brand-400" />
           <div>
             <p className="font-medium text-white">
               Waiting for Circle attestation…
@@ -225,11 +225,11 @@ export function CctpCompletionCard({ burnTx }: Props) {
       {cctpCompletionStatus === "ready" && destination && (
         <div className="space-y-3">
           <div className="flex items-start gap-3">
-            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-400" />
             <div>
               <p className="text-sm font-medium text-white">
                 Attestation ready
-                {rawAmount > 0n ? ` — ${formatUsdcDollar(rawAmount)} USDC` : ""}
+                {rawAmount > 0n ? ` (${formatUsdcDollar(rawAmount)} USDC)` : ""}
               </p>
               <p className="mt-1 flex items-center gap-1 text-xs text-slate-400">
                 Mint on{" "}
@@ -243,7 +243,7 @@ export function CctpCompletionCard({ burnTx }: Props) {
           </div>
 
           <div className="flex items-start gap-2 rounded-lg border border-slate-700 bg-slate-800/50 p-3 text-xs text-slate-400">
-            <Fuel className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-400" />
+            <Fuel className="mt-0.5 h-3.5 w-3.5 shrink-0 text-state-warning-400" />
             <div className="min-w-0 flex-1">
               <p>
                 The mint can be sent by any wallet. The connected wallet pays{" "}
@@ -265,7 +265,7 @@ export function CctpCompletionCard({ burnTx }: Props) {
                     href={destination.faucet}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-emerald-400 underline hover:text-emerald-300"
+                    className="text-brand-400 underline hover:text-brand-300"
                   >
                     Get {gasSymbol} from a faucet
                   </a>
@@ -281,12 +281,12 @@ export function CctpCompletionCard({ burnTx }: Props) {
               {destinationBalance && (
                 <p
                   className={
-                    needsGas ? "mt-1 text-amber-300" : "mt-1 text-slate-500"
+                    needsGas ? "mt-1 text-state-warning-300" : "mt-1 text-slate-500"
                   }
                 >
                   Connected wallet gas: {destinationBalance.formatted}{" "}
                   {gasSymbol} on {destination.name}
-                  {needsGas ? " — fund gas before minting." : ""}
+                  {needsGas ? ". Fund gas before minting." : ""}
                 </p>
               )}
             </div>
@@ -303,7 +303,7 @@ export function CctpCompletionCard({ burnTx }: Props) {
           </button>
 
           {cctpCompletionError && (
-            <p className="flex items-start gap-2 text-xs text-red-300">
+            <p className="flex items-start gap-2 text-xs text-state-danger-300">
               <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
               {cctpCompletionError}
             </p>
@@ -312,7 +312,7 @@ export function CctpCompletionCard({ burnTx }: Props) {
       )}
 
       {cctpCompletionStatus === "ready" && !destination && (
-        <div className="flex items-start gap-2 text-xs text-amber-300">
+        <div className="flex items-start gap-2 text-xs text-state-warning-300">
           <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
           <p>
             Automatic mint is not configured for CCTP domain{" "}
@@ -324,7 +324,7 @@ export function CctpCompletionCard({ burnTx }: Props) {
 
       {cctpCompletionStatus === "minting" && (
         <div className="flex items-start gap-3 text-sm text-slate-300">
-          <Loader2 className="mt-0.5 h-4 w-4 shrink-0 animate-spin text-emerald-400" />
+          <Loader2 className="mt-0.5 h-4 w-4 shrink-0 animate-spin text-brand-400" />
           <div>
             <p className="font-medium text-white">
               Complete the mint in your wallet…
@@ -338,7 +338,7 @@ export function CctpCompletionCard({ burnTx }: Props) {
       )}
 
       {cctpCompletionStatus === "done" && (
-        <div className="flex items-start gap-3 text-sm text-emerald-300">
+        <div className="flex items-start gap-3 text-sm text-brand-300">
           <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" />
           <div>
             <p className="font-medium">
@@ -362,7 +362,7 @@ export function CctpCompletionCard({ burnTx }: Props) {
                 href={`${destination.explorer}/tx/${cctpMintHash}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-1 inline-flex items-center gap-1 text-xs text-emerald-400 underline hover:text-emerald-300"
+                className="mt-1 inline-flex items-center gap-1 text-xs text-brand-400 underline hover:text-brand-300"
               >
                 View mint tx <ExternalLink className="h-3 w-3" />
               </a>
@@ -372,7 +372,7 @@ export function CctpCompletionCard({ burnTx }: Props) {
                 href={`${destination.explorer}/address/${cctpRecipient}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-1 inline-flex items-center gap-1 text-xs text-emerald-400 underline hover:text-emerald-300"
+                className="mt-1 inline-flex items-center gap-1 text-xs text-brand-400 underline hover:text-brand-300"
               >
                 View recipient on explorer <ExternalLink className="h-3 w-3" />
               </a>
@@ -383,7 +383,7 @@ export function CctpCompletionCard({ burnTx }: Props) {
 
       {cctpCompletionStatus === "error" && (
         <div className="space-y-3">
-          <p className="flex items-start gap-2 text-sm text-red-300">
+          <p className="flex items-start gap-2 text-sm text-state-danger-300">
             <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
             {cctpCompletionError || "Could not fetch the Circle attestation."}
           </p>
@@ -395,7 +395,7 @@ export function CctpCompletionCard({ burnTx }: Props) {
                 cctpCompletionError: "",
               })
             }
-            className="w-full rounded-xl border border-slate-700 py-2.5 text-xs font-medium text-slate-300 transition hover:border-emerald-500/40 hover:text-emerald-400"
+            className="w-full rounded-xl border border-slate-700 py-2.5 text-xs font-medium text-slate-300 transition hover:border-brand-700/40 hover:text-brand-400"
           >
             Retry attestation
           </button>
