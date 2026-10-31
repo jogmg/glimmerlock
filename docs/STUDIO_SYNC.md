@@ -4,10 +4,11 @@ This checklist keeps the existing Arc Studio project credible for the
 Arc Microgrants submission without redeploying contracts or weakening
 production security.
 
-## Current sync status (2026-10-31)
+## Current sync status (2026-11-01)
 
-- Source synchronized: app-only subset of `1e376c0`. The protected
-  `src/main.tsx` entry remains the `e72dec7` Studio version.
+- Source synchronized: app-only subset of the current local app source after
+  `1e376c0`. The protected `src/main.tsx` entry remains the `e72dec7` Studio
+  version.
 - This was an **app-only** sync. It deliberately excluded `src/landing/**`, the
   `/` versus `/app` route split (`src/main.tsx`, `src/lib/routes.ts`,
   `src/app/AppSurface.tsx`), landing metadata in `index.html`, and the
@@ -15,15 +16,23 @@ production security.
   page exists in Studio.** Do not run another Studio sync or spend Studio
   credits without owner confirmation.
 - Upload: 58 `src` files plus `tailwind.config.js`, sent as round-trip files.
-  The scoped turn made no extra edits.
+  The scoped turn made no extra edits outside the staged app files.
 - Verification: a pull matched all 58 staged app files and
-  `tailwind.config.js`; `src/main.tsx` matches `e72dec7`; no landing, app-shell,
-  or route-split files are present in Studio.
+  `tailwind.config.js`; no landing, app-shell, or route-split files are present
+  in Studio. `arc-studio cat --app ... src/main.tsx` matches `e72dec7`. The
+  pull command mangles non-ASCII box-art bytes in `main.tsx`, so use `cat` for
+  that file.
+- Chat behavior in Studio: the app opens on **Chat**, the Chat item stays in
+  the app menu, and the surface is a read-only preview. The composer is
+  disabled, a notice points to the live app, and no BFF request is sent on
+  initial load. The Studio copy must not try to enable the BFF.
 - Studio app: `https://studio.arc.io/app/459b639e-b500-4f59-b057-aa17f5446888`
-- Studio checks at this sync: typecheck 0 errors, **87 frontend tests
-  passing**, build success. The repository suite remains **101 tests** because
-  the route and landing-demo tests are intentionally not in the Studio app-only
-  copy.
+- Checks against the local app-only mirror before upload: typecheck 0 errors,
+  **87 frontend tests passing**, build success. The repository suite remains
+  **101 tests** because the route and landing-demo tests are intentionally not
+  in the Studio app-only copy. The sync turn was instructed to run the same
+  checks; its CLI transcript was truncated, so the mirror and source checks are
+  the authoritative record.
 - Preview host: `ijwomt0218q2klpx2zr03.preview.studio.arc.io`
   (403 without an authenticated Studio session)
 - Production: `/` and `/app` returned `200` with title
@@ -35,7 +44,8 @@ production security.
   Tailwind config cannot fall back to stock emerald green
 - Studio deployment panel: six historical Arc Testnet deployments only; no
   fabricated mainnet records, and the sync added none
-- Studio usage after the sync: **34%** of the reported rolling window
+- Studio usage after the sync: **36%** of the reported rolling window. This
+  sync added two percentage points.
 
 ## Why the Studio UI looks different
 
@@ -130,6 +140,7 @@ Minimum files to confirm in Studio:
 - no `src/landing/**`, `src/lib/routes.ts`, or `src/app/AppSurface.tsx`
 - `src/App.tsx`
 - `src/components/Header.tsx`
+- `src/components/HermesDock.tsx`
 - `src/components/tabs/WithdrawTab.tsx`
 - `src/lib/studioPreview.ts`
 - `src/lib/contracts.ts`
@@ -178,8 +189,9 @@ Do not run `forge script` or any deploy command.
 
 ### 5. Verify the preview
 
-- The preview opens on **Overview**, not Chat.
-- The Chat item is absent from the menu.
+- The preview opens on **Chat** and the Chat item is present in the menu.
+- The Chat surface is read-only: the composer is disabled and a notice points
+  to the live app.
 - The banner says this is the Arc Studio preview and links to the live app.
 - The browser console has no `/api/session`, `/api/chat`, or `/api/intents`
   requests on initial load.
@@ -247,8 +259,8 @@ it as **built from the Arc Studio project** and note the sync date.
 ## Acceptance criteria
 
 - [ ] Existing Studio app updated; no replacement app.
-- [ ] Preview opens on Overview and makes no BFF calls.
-- [ ] Chat is hidden in preview; production chat still works.
+- [ ] Preview opens on Chat and makes no BFF calls.
+- [ ] Chat is visible but read-only in preview; production chat still works.
 - [ ] Live-app banner links to the InstaBox origin.
 - [ ] Studio build/test results recorded.
 - [ ] Deployment panel still shows only truthful records.

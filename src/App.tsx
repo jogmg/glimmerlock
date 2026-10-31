@@ -88,7 +88,8 @@ function StudioPreviewBanner() {
   return (
     <div className="border-b border-state-info-400/30 bg-state-info-500/10 px-4 py-2 text-center text-xs text-state-info-200">
       <span className="font-semibold">Arc Studio preview.</span> Treasury reads
-      work here; chat and wallet-signed actions run in the live app.{" "}
+      work here; chat is a visual preview and wallet-signed actions run in the
+      live app.{" "}
       <a
         href={LIVE_APP_URL}
         target="_blank"
@@ -115,16 +116,11 @@ const INTENT_ID_RE = /^int_[a-f0-9]{32}$/;
 
 function applyLocationLink(
   setTab: (tab: TabId) => void,
-  setReviewIntent: (id: string | null) => void,
-  studioPreview: boolean
+  setReviewIntent: (id: string | null) => void
 ) {
   const params = new URLSearchParams(window.location.search);
   const tab = params.get("tab");
-  if (tab && TAB_IDS.has(tab as TabId)) {
-    const next = tab as TabId;
-    // Chat needs the BFF and is intentionally unavailable in Studio preview.
-    if (!(studioPreview && next === "hermes")) setTab(next);
-  }
+  if (tab && TAB_IDS.has(tab as TabId)) setTab(tab as TabId);
 
   const intent = params.get("intent");
   setReviewIntent(intent && INTENT_ID_RE.test(intent) ? intent : null);
@@ -133,22 +129,13 @@ function applyLocationLink(
 // ── Main App ─────────────────────────────────────────────────────────────────
 export default function App() {
   const { activeTab, setTab, setReviewIntent } = useUiStore();
-  const studioPreview = STUDIO_PREVIEW;
 
   useEffect(() => {
-    const sync = () =>
-      applyLocationLink(setTab, setReviewIntent, studioPreview);
+    const sync = () => applyLocationLink(setTab, setReviewIntent);
     sync();
     window.addEventListener("popstate", sync);
     return () => window.removeEventListener("popstate", sync);
-  }, [setReviewIntent, setTab, studioPreview]);
-
-  useEffect(() => {
-    if (studioPreview && activeTab === "hermes") setTab("overview");
-  }, [activeTab, setTab, studioPreview]);
-
-  const displayTab =
-    studioPreview && activeTab === "hermes" ? "overview" : activeTab;
+  }, [setReviewIntent, setTab]);
 
   const TAB_CONTENT: Record<string, JSX.Element> = {
     overview: <OverviewTab />,
@@ -168,18 +155,18 @@ export default function App() {
       <WrongNetworkBanner />
       <main
         className={
-          displayTab === "hermes"
+          activeTab === "hermes"
             ? "flex h-[calc(100dvh-124px)] min-h-[22rem] flex-1 items-center justify-center px-3 pb-3 py-6 sm:px-6"
             : "mx-auto flex w-full max-w-6xl flex-1 px-4 py-6 sm:px-6"
         }
       >
-        {displayTab === "hermes" ? (
+        {activeTab === "hermes" ? (
           <div className="w-full max-w-[980px] min-h-[18rem]">
-            {TAB_CONTENT[displayTab] ?? <OverviewTab />}
+            {TAB_CONTENT[activeTab] ?? <OverviewTab />}
           </div>
         ) : (
           <div className="w-full min-h-[18rem]">
-            {TAB_CONTENT[displayTab] ?? <OverviewTab />}
+            {TAB_CONTENT[activeTab] ?? <OverviewTab />}
           </div>
         )}
       </main>

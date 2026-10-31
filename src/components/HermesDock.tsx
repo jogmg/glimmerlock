@@ -21,6 +21,7 @@ import { getCctpDestination } from "../lib/cctp";
 import { ARC_CHAIN, ARC_CHAIN_ID } from "../lib/contracts";
 import { formatUsdc } from "../lib/decimals";
 import { type HermesIntent } from "../lib/hermes";
+import { LIVE_APP_URL, STUDIO_PREVIEW } from "../lib/studioPreview";
 import { useFlowStore } from "../stores/flow";
 import { useUiStore } from "../stores/ui";
 import { ArcMark } from "./ArcMark";
@@ -71,6 +72,7 @@ export function HermesDock() {
     updateIntent,
   } = useHermesChat();
   const { execution, execute } = useHermesIntentExecution();
+  const studioPreview = STUDIO_PREVIEW;
   const cctpHash = useFlowStore((state) => state.cctpHash);
   const cctpStep = useFlowStore((state) => state.cctpStep);
   const cctpCompletionStatus = useFlowStore(
@@ -142,7 +144,7 @@ export function HermesDock() {
 
   async function submit() {
     const text = input.trim();
-    if (!text || busy || !isConnected || wrongChain) return;
+    if (studioPreview || !text || busy || !isConnected || wrongChain) return;
     setInput("");
     await send(text);
   }
@@ -279,11 +281,27 @@ export function HermesDock() {
         </div>
       </header>
 
+      {studioPreview && (
+        <div className="border-b border-state-info-400/30 bg-state-info-500/10 px-4 py-2.5 text-xs text-state-info-200 sm:px-6">
+          <span className="font-semibold">Chat preview.</span> Messages are
+          disabled in Arc Studio.{" "}
+          <a
+            href={LIVE_APP_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="font-semibold underline hover:text-state-info-100"
+          >
+            Open the live app to chat
+          </a>
+          .
+        </div>
+      )}
+
       <div
         className="scrollbar-none flex-1 space-y-5 overflow-y-auto px-4 py-5 sm:px-8 sm:py-7"
         aria-live="polite"
       >
-        {!isConnected && (
+        {!isConnected && !studioPreview && (
           <div className="glimmer-glass mx-auto flex max-w-md flex-col items-center gap-3 rounded-2xl px-6 py-10 text-center">
             <Wallet className="h-7 w-7 text-brand-300" />
             <p className="text-sm text-slate-300">
@@ -295,7 +313,7 @@ export function HermesDock() {
           </div>
         )}
 
-        {isConnected && messages.length === 0 && (
+        {(studioPreview || isConnected) && messages.length === 0 && (
           <div className="mx-auto flex min-h-full max-w-2xl flex-col justify-center py-8 sm:py-12">
             <div className="mb-8 text-center">
               <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/15 bg-white/[0.08] text-brand-300 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]">
@@ -317,7 +335,9 @@ export function HermesDock() {
                     setInput(suggestion);
                     inputRef.current?.focus();
                   }}
-                  disabled={busy || wrongChain}
+                  disabled={
+                    studioPreview || !isConnected || busy || wrongChain
+                  }
                   className="glimmer-glass rounded-xl px-4 py-3 text-left text-sm text-white/75 transition hover:border-white/30 hover:bg-white/[0.12] hover:text-white disabled:opacity-40"
                 >
                   {suggestion}
@@ -592,18 +612,24 @@ export function HermesDock() {
             rows={2}
             maxLength={4_000}
             aria-label="Message"
-            disabled={!isConnected || busy || wrongChain}
+            disabled={studioPreview || !isConnected || busy || wrongChain}
             placeholder={
-              isConnected
-                ? "Ask or describe what you need…"
-                : "Connect a wallet to start"
+              studioPreview
+                ? "Chat preview only. Open the live app to send a message."
+                : isConnected
+                  ? "Ask or describe what you need…"
+                  : "Connect a wallet to start"
             }
             className="textarea-scrollbar-none max-h-40 min-h-12 flex-1 resize-none bg-transparent px-2 py-1.5 text-sm text-white placeholder:text-white/35 focus:outline-none disabled:opacity-60"
           />
           <button
             type="submit"
             disabled={
-              !isConnected || busy || wrongChain || input.trim().length === 0
+              studioPreview ||
+              !isConnected ||
+              busy ||
+              wrongChain ||
+              input.trim().length === 0
             }
             aria-label="Send message"
             className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-300/80 hover:bg-brand-300 text-ink-950 transition disabled:cursor-not-allowed disabled:opacity-40"
@@ -616,7 +642,9 @@ export function HermesDock() {
           </button>
         </div>
         <p className="mx-auto mt-2 max-w-3xl text-center text-[10px] text-white/35">
-          Your wallet reviews and signs every transaction.
+          {studioPreview
+            ? "Chat is read-only in the Arc Studio preview."
+            : "Your wallet reviews and signs every transaction."}
         </p>
       </form>
     </section>

@@ -3,8 +3,9 @@
  *
  * Arc Studio runs the app in a sandboxed preview where the chat BFF is not
  * available. The public landing page owns `/`, and the authenticated app lives
- * at `/app`. In preview the app surface defaults to Overview, hides Chat, and
- * points reviewers at the live app for chat and wallet transactions.
+ * at `/app`. In preview the app surface opens on Chat, which is read-only:
+ * messages are disabled and a notice points reviewers at the live app for chat
+ * and wallet transactions.
  *
  * Detection is intentionally conservative. Set `VITE_STUDIO_PREVIEW=1` or add
  * `?studioPreview=1` if the Studio preview is served from a different host.
