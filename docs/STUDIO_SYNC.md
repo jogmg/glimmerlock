@@ -4,28 +4,38 @@ This checklist keeps the existing Arc Studio project credible for the
 Arc Microgrants submission without redeploying contracts or weakening
 production security.
 
-## Current sync status (2026-10-29)
+## Current sync status (2026-10-31)
 
-- Source synchronized: `e72dec7`
-- Application source and Studio source matched ignoring CRLF at that sync.
-  **The 2026-10-30 public landing/app-routing change is local-only and has not
-  been synced.** Do not run a Studio sync or spend Studio credits without owner
-  confirmation.
+- Source synchronized: app-only subset of `1e376c0`. The protected
+  `src/main.tsx` entry remains the `e72dec7` Studio version.
+- This was an **app-only** sync. It deliberately excluded `src/landing/**`, the
+  `/` versus `/app` route split (`src/main.tsx`, `src/lib/routes.ts`,
+  `src/app/AppSurface.tsx`), landing metadata in `index.html`, and the
+  app-menu home link. **Studio keeps the app at the workspace root; no landing
+  page exists in Studio.** Do not run another Studio sync or spend Studio
+  credits without owner confirmation.
+- Upload: 58 `src` files plus `tailwind.config.js`, sent as round-trip files.
+  The scoped turn made no extra edits.
+- Verification: a pull matched all 58 staged app files and
+  `tailwind.config.js`; `src/main.tsx` matches `e72dec7`; no landing, app-shell,
+  or route-split files are present in Studio.
 - Studio app: `https://studio.arc.io/app/459b639e-b500-4f59-b057-aa17f5446888`
 - Studio checks at this sync: typecheck 0 errors, **87 frontend tests
-  passing**, build success. The local landing change now has **101 frontend
-  tests**; re-run checks in Studio after the confirmed sync.
+  passing**, build success. The repository suite remains **101 tests** because
+  the route and landing-demo tests are intentionally not in the Studio app-only
+  copy.
 - Preview host: `ijwomt0218q2klpx2zr03.preview.studio.arc.io`
   (403 without an authenticated Studio session)
-- Production deploy: `700a1ad`, Actions run
-  [40954986857](https://github.com/jogmg/glimmerlock/actions/runs/40954986857);
-  only the frontend was recreated
+- Production: `/` and `/app` returned `200` with title
+  `Glimmerlock: USDC treasury for AI agents` on 2026-10-31; `/health` and
+  `/api/session` returned `200`. The owner reported that the GitHub push
+  updated the server; the exact deploy SHA was not independently recorded.
 - Studio preview color note: primary CTA backgrounds use literal `#083D77`
   instead of `bg-emerald-500`, so a preview build that ignores the local
   Tailwind config cannot fall back to stock emerald green
 - Studio deployment panel: six historical Arc Testnet deployments only; no
   fabricated mainnet records, and the sync added none
-- Studio usage after the sync: **33%** of the reported rolling window
+- Studio usage after the sync: **34%** of the reported rolling window
 
 ## Why the Studio UI looks different
 
@@ -102,23 +112,29 @@ The CLI has no `push` command. Use the cheapest supported path for the existing
 app:
 
 - Prefer Studio's GitHub import/refresh if it updates the existing app in place.
-- Otherwise use one explicit, file-scoped agent turn after the backup, for
-  example:
-  `arc-studio run --app 459b639e-b500-4f59-b057-aa17f5446888 -f src:src -f public:public -f index.html:index.html`
-- Instruct the turn to **replace files only** and not to generate features,
+- For an app-only sync, stage a temporary `src` tree that excludes
+  `src/landing/**`, `src/main.tsx`, `src/lib/routes.ts`,
+  `src/app/AppSurface.tsx`, and `src/components/StudioWatermark.tsx`. Do not
+  send `index.html` or landing assets.
+- Use one explicit, file-scoped agent turn after the backup, for example:
+  `arc-studio run --app 459b639e-b500-4f59-b057-aa17f5446888 --prompt-file <prompt> --file <staged-src>:src --file <staged-tailwind>:tailwind.config.js`
+- Instruct the turn to **keep the staged files** and the existing
+  `src/main.tsx`, and not to generate features, add a landing page or route,
   deploy contracts, or change configuration.
 - Do not use a broad "rebuild the app" prompt. That consumes credits and creates
   unnecessary drift.
 
 Minimum files to confirm in Studio:
 
-- `index.html`
-- `public/`
+- `src/main.tsx` is still the `e72dec7` root-app entry
+- no `src/landing/**`, `src/lib/routes.ts`, or `src/app/AppSurface.tsx`
 - `src/App.tsx`
 - `src/components/Header.tsx`
+- `src/components/tabs/WithdrawTab.tsx`
 - `src/lib/studioPreview.ts`
 - `src/lib/contracts.ts`
 - `src/stores/ui.ts`
+- `tailwind.config.js`
 - `deployments/arc-mainnet.json`
 - the current contract sources and tests
 
@@ -154,8 +170,9 @@ npm test
 npm run build
 ```
 
-Expected after the current patches: **101 frontend tests** locally. Treat the
-Studio-reported count separately and record what Studio actually reports.
+Expected after the current patches: **101 frontend tests** in the repository.
+The app-only Studio copy reports **87 tests** because the route and landing-demo
+tests are excluded. Record what Studio actually reports.
 
 Do not run `forge script` or any deploy command.
 
@@ -194,7 +211,8 @@ The preview patch changes the frontend bundle, so it needs the normal CI deploy:
 2. Confirm the **Verify** and **Deploy** jobs pass.
 3. Confirm only the frontend/nginx service is rebuilt or recreated.
 4. Re-run the public checks:
-   - `<title>Glimmerlock</title>`
+   - `/` returns `200` with `<title>Glimmerlock: USDC treasury for AI agents</title>`
+   - `/app` returns `200` with the same title
    - `/health` `200`
    - `/api/session` `200`
    - Chat still opens in the production app, not preview mode.
